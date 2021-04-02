@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 
+// screen that handles logging in the user
 export const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

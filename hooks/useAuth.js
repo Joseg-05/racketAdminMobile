@@ -1,10 +1,10 @@
 import { register, login, logout } from "../api/post";
 import { createAction } from "../config/createAction";
-import React, { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import * as SecureStore from "expo-secure-store";
 
 export const useAuth = () => {
-    const [state, dispatch] = React.useReducer(
+    const [state, dispatch] = useReducer(
         (state, action) => {
             switch (action.type) {
                 case "SET_USER":
@@ -25,17 +25,17 @@ export const useAuth = () => {
             user: undefined,
         }
     );
-    const auth = React.useMemo(
+    const auth = useMemo(
         () => ({
             login: async (email, password) => {
                 const data = await login(email, password);
                 await SecureStore.setItemAsync("user", JSON.stringify(data));
                 dispatch(createAction("SET_USER", data));
             },
-            logout: async () => {
+            logout: async (user) => {
+                await logout(user.token);
                 await SecureStore.deleteItemAsync("user");
 
-                // await logout();
                 dispatch(createAction("REMOVE_USER"));
             },
             register,
@@ -45,7 +45,7 @@ export const useAuth = () => {
 
     //this will keep user logged in even if they kill the app
     //will check to see if user object is saved in the phones app on mount of the application
-    React.useEffect(() => {
+    useEffect(() => {
         async function getUserInfo() {
             const user = await SecureStore.getItemAsync("user");
             if (user) {

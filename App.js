@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useReducer } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { AuthStackNavigator } from "./navigators/AuthStackNavigator";
 import { MainStackNavigator } from "./navigators/MainStackNavigator";
+import { MainTabNavigator } from "./navigators/MainTabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AuthContext } from "./context/AuthContext";
@@ -28,7 +29,7 @@ const App = (props) => {
                         <RootStack.Screen name={"MainStack"}>
                             {() => (
                                 <UserContext.Provider value={state.user}>
-                                    <MainStackNavigator />
+                                    <MainTabNavigator />
                                 </UserContext.Provider>
                             )}
                         </RootStack.Screen>

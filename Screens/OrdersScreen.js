@@ -1,14 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const Orders = (props) => {
+// change to OrdersScreen
+// screen that will handle creating and viewing orders
+const OrdersScreen = (props) => {
     return (
         <View style={styles.container}>
             <Text>Orders page</Text>
-            <Button
-                title="Navigate to Home Page"
-                onPress={() => props.navigation.navigate("Home")}
-            />
         </View>
     );
 };
@@ -16,10 +14,10 @@ const Orders = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "red",
+
         justifyContent: "center",
         alignItems: "center",
     },
 });
 
-export default Orders;
+export default OrdersScreen;

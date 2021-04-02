@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { AuthContext } from "../context/AuthContext";
+
 /* Screen that handles Registration */
 export const RegistrationScreen = ({ navigation }) => {
     const { register } = React.useContext(AuthContext);

@@ -3,23 +3,20 @@ import { UserContext } from "../context/UserContext";
 import { AuthContext } from "../context/AuthContext";
 import { View, Text, StyleSheet, Button } from "react-native";
 
+// screen that contains the main home page users will be directed to when logged in
 const HomeScreen = (props) => {
     const { logout } = React.useContext(AuthContext);
     const user = React.useContext(UserContext);
-    console.log(user);
+
     return (
         <View style={styles.container}>
             <Button
                 title="logout"
                 onPress={async () => {
-                    await logout();
+                    await logout(user);
                 }}
             ></Button>
-            <Text>Welcome to the home page</Text>
-            <Button
-                title="Navigate to Orders Page"
-                onPress={() => props.navigation.navigate("Orders")}
-            />
+            <Text>Welcome to the home page, {user.user.email}</Text>
         </View>
     );
 };
@@ -27,7 +24,7 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "teal",
+
         justifyContent: "center",
         alignItems: "center",
     },

@@ -4,7 +4,7 @@ import { RegistrationScreen } from "../Screens/RegistrationScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 
 export const AuthStack = createStackNavigator();
-
+// navigator that is presented when user is not logged in
 export const AuthStackNavigator = () => {
     return (
         <AuthStack.Navigator
