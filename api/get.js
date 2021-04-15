@@ -9,3 +9,18 @@ export const customersGet = async (user) => {
     });
     return results;
 };
+
+//create order
+export const ordersGet = async (user) => {
+    try {
+        const result = await axios.get(`${BASE_URL}/orders`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+
+        return result.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

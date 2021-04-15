@@ -1,7 +1,7 @@
 import React from "react";
 import { UserContext } from "../context/UserContext";
 import { AuthContext } from "../context/AuthContext";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
 
 // screen that contains the main home page users will be directed to when logged in
 const HomeScreen = (props) => {
@@ -9,7 +9,7 @@ const HomeScreen = (props) => {
     const user = React.useContext(UserContext);
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Button
                 title="logout"
                 onPress={async () => {
@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
                 }}
             ></Button>
             <Text>Welcome to the home page, {user.user.email}</Text>
-        </View>
+        </SafeAreaView>
     );
 };
 

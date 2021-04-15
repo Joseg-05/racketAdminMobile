@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
 import { UserContext } from "../context/UserContext";
-import { AuthContext } from "../context/AuthContext";
-import { BASE_URL } from "../config/index";
+
 import { createCustomers } from "../api/post";
 import { customersGet } from "../api/get";
 import axios from "axios";
@@ -27,7 +26,7 @@ const CustomersScreen = (props) => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text>Customers page</Text>
             {customers.map((e) => {
                 return <Text>{e.name}</Text>;
@@ -39,7 +38,7 @@ const CustomersScreen = (props) => {
                     setReload((reload) => !reload);
                 }}
             ></Button>
-        </View>
+        </SafeAreaView>
     );
 };
 

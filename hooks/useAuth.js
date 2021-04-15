@@ -35,7 +35,6 @@ export const useAuth = () => {
             logout: async (user) => {
                 await logout(user.token);
                 await SecureStore.deleteItemAsync("user");
-
                 dispatch(createAction("REMOVE_USER"));
             },
             register,

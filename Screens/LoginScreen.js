@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import {
     StyleSheet,
@@ -6,6 +6,7 @@ import {
     View,
     TextInput,
     TouchableOpacity,
+    SafeAreaView,
 } from "react-native";
 
 // screen that handles logging in the user
@@ -16,12 +17,13 @@ export const LoginScreen = ({ navigation }) => {
     const { login } = React.useContext(AuthContext);
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Login</Text>
             <View style={styles.inputContainer}>
                 <TextInput
                     keyboardType="email-address"
                     placeholder="Email"
+                    placeholderTextColor={"white"}
                     value={email}
                     onChangeText={setEmail}
                 />
@@ -30,6 +32,7 @@ export const LoginScreen = ({ navigation }) => {
                 <TextInput
                     keyboardType="ascii-capable"
                     placeholder="Password"
+                    placeholderTextColor={"white"}
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry
@@ -53,31 +56,34 @@ export const LoginScreen = ({ navigation }) => {
                         navigation.navigate("Register");
                     }}
                 >
-                    <Text style={{ color: "blue" }}>
-                        Don't have an account? Press here to register
+                    <Text style={{ color: "#FFD700" }}>
+                        Press here to register
                     </Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#36454f",
         alignItems: "center",
         padding: 20,
     },
     header: {
+        marginTop: 100,
         fontSize: 40,
         fontWeight: "bold",
+        color: "white",
     },
     inputContainer: {
         width: "100%",
-        backgroundColor: "#ccc",
+        borderColor: "#FFD700",
         margin: 20,
         padding: 20,
+        borderBottomWidth: 2,
         borderRadius: 8,
     },
     buttonContainer: {
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         width: "100%",
-        backgroundColor: "blue",
+        backgroundColor: "#343a40",
         borderRadius: 8,
         padding: 20,
         alignItems: "center",
