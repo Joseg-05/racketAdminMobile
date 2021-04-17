@@ -6,7 +6,7 @@ import {
     Button,
     SafeAreaView,
     FlatList,
-    Modal,
+    TouchableOpacity,
 } from "react-native";
 import { UserContext } from "../context/UserContext";
 import { ordersGet } from "../api/get";
@@ -19,13 +19,25 @@ import { Swipeable } from "react-native-gesture-handler";
 const OrdersScreen = (props) => {
     const user = React.useContext(UserContext);
     const [userOrders, setUserOrders] = useState(null);
+
+    //on mount get orders for user that are not completed yet
     useEffect(() => {
         const getOrders = async () => {
             const orders = await ordersGet(user);
-            setUserOrders(orders);
+
+            clean(orders);
         };
         getOrders();
     }, []);
+
+    const clean = (orders) => {
+        if (orders !== undefined) {
+            const results = orders.filter((e) => {
+                return e.completed === false;
+            });
+            setUserOrders(results);
+        }
+    };
 
     const LeftAction = (progress, dragX) => {
         return (
@@ -33,14 +45,21 @@ const OrdersScreen = (props) => {
                 style={{
                     fontSize: 20,
                     color: "white",
-                    backgroundColor: "green",
+                    backgroundColor: "#FFD700",
                     width: "100%",
                     justifyContent: "center",
                     alignItems: "flex-start",
                     flex: 1,
                 }}
             >
-                <Text style={{ padding: 20, fontSize: 20, color: "white" }}>
+                <Text
+                    style={{
+                        padding: 20,
+                        fontSize: 20,
+                        color: "black",
+                        fontWeight: "bold",
+                    }}
+                >
                     Completed
                 </Text>
             </View>
@@ -55,9 +74,20 @@ const OrdersScreen = (props) => {
                         data={userOrders}
                         renderItem={({ item }) => {
                             return (
-                                <Swipeable renderLeftActions={LeftAction}>
-                                    <OrderRow orderDetails={item} />
-                                </Swipeable>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        props.navigation.navigate(
+                                            "OrderDetailsScreen",
+                                            {
+                                                ...item,
+                                            }
+                                        );
+                                    }}
+                                >
+                                    <Swipeable renderLeftActions={LeftAction}>
+                                        <OrderRow orderDetails={item} />
+                                    </Swipeable>
+                                </TouchableOpacity>
                             );
                         }}
                         keyExtractor={(item) => item._id}
@@ -72,7 +102,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Constants.statusBarHeight + 20,
-
         alignItems: "center",
         backgroundColor: "#36454f",
     },
