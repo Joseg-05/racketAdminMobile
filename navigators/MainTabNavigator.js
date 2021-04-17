@@ -2,8 +2,9 @@ import React from "react";
 
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeScreen from "../Screens/HomeScreen";
-import OrdersScreen from "../Screens/OrdersScreen";
 import CustomersScreen from "../Screens/CustomersScreen";
+
+import { OrdersNavigator } from "../navigators/OrdersNavigator";
 import { Ionicons } from "@expo/vector-icons";
 
 export const MainTab = createMaterialBottomTabNavigator();
@@ -18,7 +19,7 @@ export const MainTabNavigator = () => {
             }}
         >
             <MainTab.Screen name="Home" component={HomeScreen} />
-            <MainTab.Screen name="Orders" component={OrdersScreen} />
+            <MainTab.Screen name="Orders" component={OrdersNavigator} />
             <MainTab.Screen name="Customers" component={CustomersScreen} />
         </MainTab.Navigator>
     );
