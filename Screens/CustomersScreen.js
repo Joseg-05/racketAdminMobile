@@ -10,7 +10,7 @@ const CustomersScreen = (props) => {
     const user = React.useContext(UserContext);
 
     const [customers, setCustomers] = useState([]);
-    const [reload, setReload] = useState([]);
+
     let x = 1;
     //on mount get customers associated with user
     useEffect(() => {
@@ -19,11 +19,12 @@ const CustomersScreen = (props) => {
             setCustomers(data.data);
         }
         getCustomers();
-    }, [reload]);
+    }, []);
 
     async function createCustomer() {
         await createCustomers(user);
     }
+    console.log(customers);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -35,7 +36,6 @@ const CustomersScreen = (props) => {
                 title="push to create test"
                 onPress={async () => {
                     await createCustomer();
-                    setReload((reload) => !reload);
                 }}
             ></Button>
         </SafeAreaView>
