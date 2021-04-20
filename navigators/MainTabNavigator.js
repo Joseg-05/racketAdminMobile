@@ -5,6 +5,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import CustomersScreen from "../Screens/CustomersScreen";
 
 import { OrdersNavigator } from "../navigators/OrdersNavigator";
+import { customerNavigator } from "../navigators/CustomerNavigator";
 import { Ionicons } from "@expo/vector-icons";
 
 export const MainTab = createMaterialBottomTabNavigator();
@@ -20,7 +21,7 @@ export const MainTabNavigator = () => {
         >
             <MainTab.Screen name="Home" component={HomeScreen} />
             <MainTab.Screen name="Orders" component={OrdersNavigator} />
-            <MainTab.Screen name="Customers" component={CustomersScreen} />
+            <MainTab.Screen name="Customers" component={customerNavigator} />
         </MainTab.Navigator>
     );
 };
