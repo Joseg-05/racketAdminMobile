@@ -8,6 +8,7 @@ import {
     FlatList,
     Modal,
 } from "react-native";
+
 export const OrderRow = ({ orderDetails }) => {
     return (
         <View style={styles.orderContainer}>

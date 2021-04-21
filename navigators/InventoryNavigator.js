@@ -13,7 +13,7 @@ export const InventoryNavigator = (props) => {
                 headerShown: false,
             }}
         >
-            <Stack.Screen name="IneventoryScreen" component={InventoryScreen} />
+            <Stack.Screen name="InventoryScreen" component={InventoryScreen} />
             <Stack.Screen
                 name="InventoryDetailsScreen"
                 component={InventoryDetailsScreen}
