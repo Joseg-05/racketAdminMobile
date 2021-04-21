@@ -7,7 +7,7 @@ import { StackActions } from "@react-navigation/routers";
 
 export const Stack = createStackNavigator();
 
-export const customerNavigator = (props) => {
+export const CustomerNavigator = (props) => {
     return (
         <Stack.Navigator
             screenOptions={{

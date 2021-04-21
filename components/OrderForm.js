@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, TextInput } from "react-native";
 
-import { ordersPatch } from "../api/patch";
+import { ordersPut } from "../api/put";
 import { UserContext } from "../context/UserContext";
 
 export const OrderForm = (props) => {
