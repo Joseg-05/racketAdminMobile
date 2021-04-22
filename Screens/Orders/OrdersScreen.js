@@ -8,18 +8,16 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+import { Ionicons } from "@expo/vector-icons";
+import { OrderRow } from "../../components/OrderRow";
 import { UserContext } from "../../context/UserContext";
 import { Appbar } from "react-native-paper";
-import { ordersGet } from "../../api/get";
-import Constants from "expo-constants";
-
-import { Ionicons } from "@expo/vector-icons";
-
-import { OrderRow } from "../../components/OrderRow";
 import { Swipeable } from "react-native-gesture-handler";
-// change to OrdersScreen
+import { ordersGet } from "../../api/get";
+
 // screen that will handle creating and viewing orders
-const OrdersScreen = (props) => {
+export const OrdersScreen = (props) => {
     const user = React.useContext(UserContext);
     const [userOrders, setUserOrders] = useState(null);
 
@@ -132,5 +130,3 @@ const styles = StyleSheet.create({
     },
     Text: {},
 });
-
-export default OrdersScreen;

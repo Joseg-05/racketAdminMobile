@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    SafeAreaView,
-    FlatList,
-    Modal,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 export const OrderRow = ({ orderDetails }) => {
     return (

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import OrdersScreen from "../Screens/Orders/OrdersScreen";
+import { OrdersScreen } from "../Screens/Orders/OrdersScreen";
 import { OrderEditScreen } from "../Screens/Orders/OrderEditScreen";
 import { OrderAddScreen } from "../Screens/Orders/OrderAddScreen";
 

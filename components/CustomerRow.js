@@ -1,14 +1,7 @@
 import React from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    SafeAreaView,
-    FlatList,
-    Modal,
-} from "react-native";
-export const CustomerRow = ({ customerDetails}) => {
+import { View, Text, StyleSheet } from "react-native";
+
+export const CustomerRow = ({ customerDetails }) => {
     return (
         <View style={styles.orderContainer}>
             <View>
@@ -16,9 +9,7 @@ export const CustomerRow = ({ customerDetails}) => {
                     {`${customerDetails.name} `}
                 </Text>
             </View>
-            <View>
-                {/* <Text style={styles.racketBrand}>hello</Text> */}
-            </View>
+            <View>{/* <Text style={styles.racketBrand}>hello</Text> */}</View>
         </View>
     );
 };

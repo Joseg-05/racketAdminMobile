@@ -1,14 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useMemo, useReducer } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+// import navigators
 import { AuthStackNavigator } from "./navigators/AuthStackNavigator";
-
 import { MainTabNavigator } from "./navigators/MainTabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+// import context
 import { AuthContext } from "./context/AuthContext";
-import { useAuth } from "./hooks/useAuth";
 import { UserContext } from "./context/UserContext";
+// import auth hook
+import { useAuth } from "./hooks/useAuth";
 
 const RootStack = createStackNavigator();
 

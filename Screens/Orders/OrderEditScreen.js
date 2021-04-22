@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-} from "react-native";
-
+import React, { useEffect } from "react";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
-
 import Constants from "expo-constants";
 
 import { OrderEditForm } from "../../components/OrderEditForm";

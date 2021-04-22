@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";

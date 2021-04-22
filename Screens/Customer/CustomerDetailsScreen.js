@@ -2,7 +2,6 @@ import React from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Constants from "expo-constants";
 
-
 export const CustomerDetailsScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#36454f",
         justifyContent: "center",
     },
-    name : {
-        color: 'white'
-    }
+    name: {
+        color: "white",
+    },
 });

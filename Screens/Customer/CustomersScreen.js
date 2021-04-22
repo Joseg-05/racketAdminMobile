@@ -21,7 +21,6 @@ const CustomersScreen = (props) => {
 
     const [customers, setCustomers] = useState([]);
 
-    let x = 1;
     //on mount get customers associated with user
     useEffect(() => {
         async function getCustomers() {
