@@ -3,16 +3,19 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     SafeAreaView,
     FlatList,
     TouchableOpacity,
 } from "react-native";
-import { UserContext } from "../context/UserContext";
-import { ordersGet } from "../api/get";
+import { StatusBar } from "expo-status-bar";
+import { UserContext } from "../../context/UserContext";
+import { Appbar } from "react-native-paper";
+import { ordersGet } from "../../api/get";
 import Constants from "expo-constants";
 
-import { OrderRow } from "../components/OrderRow";
+import { Ionicons } from "@expo/vector-icons";
+
+import { OrderRow } from "../../components/OrderRow";
 import { Swipeable } from "react-native-gesture-handler";
 // change to OrdersScreen
 // screen that will handle creating and viewing orders
@@ -68,6 +71,28 @@ const OrdersScreen = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar style="light" backgroundColor="#1e3d58" />
+            {/* will seperate in to component later */}
+            <Appbar
+                style={{
+                    minWidth: "100%",
+                    backgroundColor: "#1e3d58",
+                }}
+            >
+                <Appbar.Content title="Orders" />
+                <Appbar.Action
+                    icon={() => (
+                        <Ionicons
+                            name="add-circle-outline"
+                            size={24}
+                            color="white"
+                        />
+                    )}
+                    onPress={() => {
+                        props.navigation.navigate("OrderAddScreen");
+                    }}
+                />
+            </Appbar>
             <View style={{ width: "100%" }}>
                 {userOrders && (
                     <FlatList
@@ -77,7 +102,7 @@ const OrdersScreen = (props) => {
                                 <TouchableOpacity
                                     onPress={() => {
                                         props.navigation.navigate(
-                                            "OrderDetailsScreen",
+                                            "OrderEditScreen",
                                             {
                                                 ...item,
                                             }
@@ -101,7 +126,7 @@ const OrdersScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight + 20,
+        paddingTop: Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
     },

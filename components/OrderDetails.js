@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Button,
-    SafeAreaView,
-    FlatList,
-    Modal,
-} from "react-native";
+import { View, Text } from "react-native";
 
 export const OrderDetails = ({ orderDetails }) => {
     const renderDetails = Object.entries(orderDetails).map(([key, value]) => {

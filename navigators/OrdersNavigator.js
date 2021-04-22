@@ -1,9 +1,9 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import OrdersScreen from "../Screens/OrdersScreen";
-import { OrderDetailsScreen } from "../Screens/OrderDetailsScreen";
-import { StackActions } from "@react-navigation/routers";
+import OrdersScreen from "../Screens/Orders/OrdersScreen";
+import { OrderEditScreen } from "../Screens/Orders/OrderEditScreen";
+import { OrderAddScreen } from "../Screens/Orders/OrderAddScreen";
 
 export const Stack = createStackNavigator();
 
@@ -13,12 +13,11 @@ export const OrdersNavigator = (props) => {
             screenOptions={{
                 headerShown: false,
             }}
+            mode="modal"
         >
             <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
-            <Stack.Screen
-                name="OrderDetailsScreen"
-                component={OrderDetailsScreen}
-            />
+            <Stack.Screen name="OrderEditScreen" component={OrderEditScreen} />
+            <Stack.Screen name="OrderAddScreen" component={OrderAddScreen} />
         </Stack.Navigator>
     );
 };

@@ -1,8 +1,8 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import CustomersScreen from "../Screens/CustomersScreen";
-import { CustomerDetailsScreen } from "../Screens/CustomerDetailsScreen";
+import CustomersScreen from "../Screens/Customer/CustomersScreen";
+import { CustomerDetailsScreen } from "../Screens/Customer/CustomerDetailsScreen";
 import { StackActions } from "@react-navigation/routers";
 
 export const Stack = createStackNavigator();
