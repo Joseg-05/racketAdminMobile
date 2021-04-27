@@ -6,7 +6,7 @@ import Constants from "expo-constants";
 import { OrderEditForm } from "../../components/OrderEditForm";
 
 export const OrderEditScreen = (props) => {
-    useEffect(() => {});
+    useEffect(() => {}, [props]);
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="light" backgroundColor="#1e3d58" />

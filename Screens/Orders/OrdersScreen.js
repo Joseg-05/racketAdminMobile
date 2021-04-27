@@ -23,13 +23,17 @@ export const OrdersScreen = (props) => {
 
     //on mount get orders for user that are not completed yet
     useEffect(() => {
-        const getOrders = async () => {
-            const orders = await ordersGet(user);
+        //refresh orders when focusing back on to this screen
+        const popEvent = props.navigation.addListener("focus", () => {
+            const getOrders = async () => {
+                const orders = await ordersGet(user);
 
-            clean(orders);
-        };
-        getOrders();
-    }, []);
+                clean(orders);
+            };
+            getOrders();
+        });
+        return popEvent;
+    }, [props.navigation]);
 
     const clean = (orders) => {
         if (orders !== undefined) {

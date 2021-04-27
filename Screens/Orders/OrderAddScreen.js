@@ -3,28 +3,22 @@ import { View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
+import { OrderAddForm } from "../../components/OrderAddForm";
 
 export const OrderAddScreen = (props) => {
     return (
         <View style={styles.container}>
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                }}
-            >
-                <Appbar.Action
-                    icon={() => <Feather name="x" size={24} color="white" />}
-                    onPress={() => props.navigation.pop()}
-                />
-                <Appbar.Content title="Add Order" />
-            </Appbar>
+            <OrderAddForm {...props} />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Constants.statusBarHeight,
+        flex: 1,
+        paddingTop: Constants.statusBarHeight,
+        alignItems: "center",
+        backgroundColor: "#36454f",
+        justifyContent: "center",
     },
 });

@@ -8,31 +8,16 @@ import { StatusBar } from "expo-status-bar";
 
 import { ordersPut } from "../api/put";
 
-export const OrderEditForm = (props) => {
+export const OrderAddForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    const [orderDetails, setOrderDetails] = useState({
-        ...props.route.params,
-    });
-
-    let firstRender = true;
-    // useEffect(() => {
-    //     if (firstRender) firstRender = false;
-    //     else {
-    //         setDisableSave(true);
-    //     }
-    // }, [orderDetails]);
+    const [textInputModel, setTextInputModel] = useState("");
+    const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
 
     const updateOrder = async () => {
-        const allowedUpdates = [
-            "racketBrand",
-            "model",
-            "stringPattern",
-            "recTension",
-            "desiredTension",
-            "stringType",
-        ];
+        if (!checkTextInput()) return;
+
         const dataBody = {};
         const orderDetailsBody = Object.keys(orderDetails);
 
@@ -42,6 +27,27 @@ export const OrderEditForm = (props) => {
 
         await ordersPut(user, orderDetails._id, dataBody);
         props.navigation.pop();
+    };
+
+    const checkTextInputValidation = () => {
+        const alertString = [];
+        if (!textInputModel.trim()) {
+            alertString.push("Model");
+        }
+
+        if (!textInputRacketBrand.trim()) {
+            alertString.push("Racket Brand");
+        }
+
+        if (alertString.length > 0) {
+            alert(
+                "Please fill out the following fields:\n" +
+                    alertString.join(", ")
+            );
+            return false;
+        }
+
+        return true;
     };
 
     return (
@@ -56,20 +62,21 @@ export const OrderEditForm = (props) => {
                     icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
                 />
-                <Appbar.Content title="Edit Order" />
+                <Appbar.Content title="Add Order" />
                 <TouchableOpacity
                     style={{
                         marginTop: 14,
                         marginRight: 10,
                     }}
-                    disabled={disableSave}
+                    disabled={false}
                     onPress={async () => {
                         await updateOrder();
                     }}
                 >
                     <Appbar.Content
-                        color={disableSave ? "gray" : "white"}
-                        title="Save"
+                        // color={disableSave ? "gray" : "white"}
+                        color={"white"}
+                        title="Add"
                     />
                 </TouchableOpacity>
             </Appbar>
@@ -106,13 +113,9 @@ export const OrderEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={orderDetails.model}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return { ...current, model: val };
-                                    });
+                                    setTextInputModel(val);
                                 }}
                             />
                         </View>
@@ -139,13 +142,9 @@ export const OrderEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={orderDetails.racketBrand}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return { ...current, racketBrand: val };
-                                    });
+                                    setTextInputRacketBrand(val);
                                 }}
                             />
                         </View>
@@ -172,13 +171,9 @@ export const OrderEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={orderDetails.recTension}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return { ...current, recTension: val };
-                                    });
+                                    console.log(val);
                                 }}
                             />
                         </View>
@@ -205,7 +200,6 @@ export const OrderEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={orderDetails.stringPattern}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
                                     setDisableSave(false);
@@ -241,7 +235,6 @@ export const OrderEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={orderDetails.desiredTension}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
                                     setDisableSave(false);
@@ -277,7 +270,6 @@ export const OrderEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={orderDetails.stringType}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
                                     setDisableSave(false);
