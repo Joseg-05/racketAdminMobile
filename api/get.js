@@ -23,3 +23,17 @@ export const ordersGet = async (user) => {
         console.log(error);
     }
 };
+
+export const stockGet = async (user) => {
+    try {
+        const result = await axios.get(`${BASE_URL}/stock`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+
+        return result.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -24,6 +24,7 @@ export const LoginScreen = ({ navigation }) => {
                     keyboardType="email-address"
                     placeholder="Email"
                     placeholderTextColor={"white"}
+                    color={"white"}
                     value={email}
                     onChangeText={setEmail}
                 />
@@ -33,6 +34,7 @@ export const LoginScreen = ({ navigation }) => {
                     keyboardType="ascii-capable"
                     placeholder="Password"
                     placeholderTextColor={"white"}
+                    color={"white"}
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry
@@ -81,6 +83,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         width: "100%",
         borderColor: "#FFD700",
+        color: "white",
         margin: 20,
         padding: 20,
         borderBottomWidth: 2,
