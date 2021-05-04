@@ -1,11 +1,15 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import Constants from "expo-constants";
-
-export const CustomerDetailsScreen = (props) => {
+import { CustomerEditForm } from "../../components/CustomerEditForm";
+import { StatusBar } from "expo-status-bar";
+export const CustomerEditScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.name}>{props.route.params.itemData.name}</Text>
+            <SafeAreaView style={styles.container}>
+            <StatusBar style="light" backgroundColor="#1e3d58" />
+            <CustomerEditForm {...props} />
+        </SafeAreaView>
         </SafeAreaView>
     );
 };

@@ -7,6 +7,7 @@ import {
     SafeAreaView,
     FlatList,
     TouchableOpacity,
+    PlatForm
 } from "react-native";
 import { UserContext } from "../../context/UserContext";
 import { Swipeable } from "react-native-gesture-handler";
@@ -14,6 +15,10 @@ import { CustomerRow } from "../../components/CustomerRow";
 import { createCustomers } from "../../api/post";
 import { customersGet } from "../../api/get";
 import Constants from "expo-constants";
+import { Appbar } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
+
 
 // screen that will handle creating and viewing customers
 const CustomersScreen = (props) => {
@@ -63,6 +68,28 @@ const CustomersScreen = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
+             <StatusBar style="light" backgroundColor="#1e3d58" />
+            <Appbar
+                style={{
+                    minWidth: "100%",
+                    backgroundColor: "#1e3d58",
+                }}
+            >
+                <Appbar.Content title="Customers" />
+                <Appbar.Action
+                    icon={() => (
+                        <Ionicons
+                            name="add-circle-outline"
+                            size={24}
+                            color="white"
+                        />
+                    )}
+                    onPress={() => {
+                        props.navigation.navigate("CustomerAddScreen");
+                    }}
+                />
+            </Appbar>
+
             <FlatList
                 data={customers}
                 renderItem={({ item }) => {
@@ -70,7 +97,7 @@ const CustomersScreen = (props) => {
                         <TouchableOpacity
                             onPress={() => {
                                 props.navigation.navigate(
-                                    "CustomerDetailsScreen",
+                                    "CustomerEditScreen",
                                     {
                                         itemData: item,
                                     }
