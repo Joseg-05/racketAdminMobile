@@ -2,8 +2,8 @@ import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import CustomersScreen from "../Screens/Customer/CustomersScreen";
-import { CustomerDetailsScreen } from "../Screens/Customer/CustomerDetailsScreen";
-
+import { CustomerEditScreen } from "../Screens/Customer/CustomerEditScreen";
+import {CustomerAddScreen} from "../Screens/Customer/CustomerAddScreen";
 export const Stack = createStackNavigator();
 
 export const CustomerNavigator = (props) => {
@@ -15,9 +15,10 @@ export const CustomerNavigator = (props) => {
         >
             <Stack.Screen name="CustomersScreen" component={CustomersScreen} />
             <Stack.Screen
-                name="CustomerDetailsScreen"
-                component={CustomerDetailsScreen}
+                name="CustomerEditScreen"
+                component={CustomerEditScreen}
             />
+            <Stack.Screen name="CustomerAddScreen" component={CustomerAddScreen} />
         </Stack.Navigator>
     );
 };
