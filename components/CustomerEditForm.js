@@ -29,11 +29,7 @@ export const CustomerEditForm = (props) => {
     // }, [orderDetails]);
 
     const updateOrder = async () => {
-        const allowedUpdates = [
-            "name",
-            "phone",
-           
-        ];
+        const allowedUpdates = ["name", "phone"];
         const dataBody = {};
         //orderDetailsBody
         const customerDetailsBody = Object.keys(customerDetails);
@@ -41,12 +37,12 @@ export const CustomerEditForm = (props) => {
         customerDetailsBody.forEach((el) => {
             if (allowedUpdates.includes(el)) dataBody[el] = customerDetails[el];
         });
-        
+
         await ordersPut(user, customerDetails._id, dataBody);
         props.navigation.pop();
     };
 
-    console.log(customerDetails)
+    console.log(customerDetails);
     return (
         <View>
             <Appbar
@@ -109,7 +105,7 @@ export const CustomerEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                 value={customerDetails.name}
+                                value={customerDetails.name}
                                 //value={props.route.params.itemData.name}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
@@ -186,3 +182,4 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 });
+// test push
