@@ -19,6 +19,7 @@ import { Appbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 
 // screen that will handle creating and viewing customers
 const CustomersScreen = (props) => {
@@ -67,12 +68,18 @@ const CustomersScreen = (props) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+            <View>
+            <View style={{
+            width: "100%",
+            height: STATUS_BAR_HEIGHT,
+            backgroundColor: "#1e3d58"
+        }}></View>
              <StatusBar style="light" backgroundColor="#1e3d58" />
             <Appbar
                 style={{
                     minWidth: "100%",
                     backgroundColor: "#1e3d58",
+                    height: "9%"
                 }}
             >
                 <Appbar.Content title="Customers" />
@@ -89,7 +96,8 @@ const CustomersScreen = (props) => {
                     }}
                 />
             </Appbar>
-
+           
+            
             <FlatList
                 data={customers}
                 renderItem={({ item }) => {
@@ -118,16 +126,18 @@ const CustomersScreen = (props) => {
                     await createCustomer();
                 }}
             ></Button>
-        </SafeAreaView>
+    </View>
+        
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight + 20,
+        paddingTop: Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
+        justifyContent: "center",
     },
 });
 
