@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet , Platform, View} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 
 import { OrderEditForm } from "../../components/OrderEditForm";
 
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+
 export const OrderEditScreen = (props) => {
     useEffect(() => {}, [props]);
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="light" backgroundColor="#1e3d58" />
+        <View style={styles.container}> 
+        <View style={{
+        width: "100%",
+        height: STATUS_BAR_HEIGHT,
+        backgroundColor: "#1e3d58"
+        }}></View>
             <OrderEditForm {...props} />
-        </SafeAreaView>
+        </View>
     );
 };
 

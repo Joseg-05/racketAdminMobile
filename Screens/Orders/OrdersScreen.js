@@ -6,6 +6,7 @@ import {
     SafeAreaView,
     FlatList,
     TouchableOpacity,
+    Platform
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
@@ -15,6 +16,9 @@ import { UserContext } from "../../context/UserContext";
 import { Appbar } from "react-native-paper";
 import { Swipeable } from "react-native-gesture-handler";
 import { ordersGet } from "../../api/get";
+
+
+const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
 
 // screen that will handle creating and viewing orders
 export const OrdersScreen = (props) => {
@@ -72,13 +76,19 @@ export const OrdersScreen = (props) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
+            <View style={{
+            width: "100%",
+            height: STATUS_BAR_HEIGHT,
+            backgroundColor: "#1e3d58"
+        }}></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
             {/* will seperate in to component later */}
             <Appbar
                 style={{
                     minWidth: "100%",
                     backgroundColor: "#1e3d58",
+                    height: "9%"
                 }}
             >
                 <Appbar.Content title="Orders" />
@@ -121,14 +131,13 @@ export const OrdersScreen = (props) => {
                     />
                 )}
             </View>
-        </SafeAreaView>
+            </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
     },

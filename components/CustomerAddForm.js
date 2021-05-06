@@ -56,6 +56,7 @@ export const CustomerAddForm = (props) => {
                 style={{
                     minWidth: "100%",
                     backgroundColor: "#1e3d58",
+                    height: "9%"
                 }}
             >
                 <Appbar.Action

@@ -10,9 +10,9 @@ export const Stack = createStackNavigator();
 export const OrdersNavigator = (props) => {
     return (
         <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
+        screenOptions={{
+            headerShown: false,
+        }}
             mode="modal"
         >
             <Stack.Screen name="OrdersScreen" component={OrdersScreen} />
