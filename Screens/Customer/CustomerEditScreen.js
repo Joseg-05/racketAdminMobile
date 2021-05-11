@@ -13,8 +13,7 @@ export const CustomerEditScreen = (props) => {
             <View
                 style={{
                     width: "100%",
-                    height:
-                        STATUS_BAR_HEIGHT + (Platform.OS === "ios" ? 0 : 20),
+                    height: STATUS_BAR_HEIGHT + 30,
                     backgroundColor: "#1e3d58",
                 }}
             ></View>

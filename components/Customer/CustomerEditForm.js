@@ -19,6 +19,7 @@ export const CustomerEditForm = (props) => {
     const [customerDetails, setCustomerDetails] = useState({
         ...props.route.params.itemData,
     });
+    // TASK: convert object keys -> seperate states
 
     let firstRender = true;
     // useEffect(() => {
@@ -27,6 +28,12 @@ export const CustomerEditForm = (props) => {
     //         setDisableSave(true);
     //     }
     // }, [orderDetails]);
+
+    //handle passing data from child to parent ... if time permits will convert to redux
+    const inputHandler = (data, setState) => {
+        setState(data);
+        setDisableSave(false);
+    };
 
     const updateOrder = async () => {
         const allowedUpdates = ["name", "phone"];
@@ -73,7 +80,7 @@ export const CustomerEditForm = (props) => {
                     />
                 </TouchableOpacity>
             </Appbar>
-            {/* will seperate into components later */}
+            {/* TASK : seperate into EditTextInput.js Component */}
             <View style={styles.container}>
                 <View
                     style={{

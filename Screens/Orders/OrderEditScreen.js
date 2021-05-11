@@ -5,7 +5,8 @@ import Constants from "expo-constants";
 
 import { OrderEditForm } from "../../components/Order/OrderEditForm";
 
-const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT =
+    Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 export const OrderEditScreen = (props) => {
     useEffect(() => {}, [props]);
