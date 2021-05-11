@@ -1,10 +1,8 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, TextInput, Appbar } from "react-native-paper";
-import { Feather, Fontisto } from "@expo/vector-icons";
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Appbar } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
-
-import { StatusBar } from "expo-status-bar";
 
 import { ordersPut } from "../../api/put";
 
@@ -14,18 +12,23 @@ export const OrderEditForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    const [model, setModel] = useState("");
-    const [racketBrand, setRacketBrand] = useState("");
-    const [recTension, setRecTension] = useState("");
-    const [stringPattern, setStringPattern] = useState("");
-    const [stringType, setStringStype] = useState("");
-    const [orderDetails, setOrderDetails] = useState({
-        ...props.route.params,
-    });
+    const [model, setModel] = useState(props.route.params.model);
+    const [racketBrand, setRacketBrand] = useState(
+        props.route.params.racketBrand
+    );
+    const [recTension, setRecTension] = useState(props.route.params.recTension);
+    const [stringPattern, setStringPattern] = useState(
+        props.route.params.stringPattern
+    );
+    const [desiredTension, setDesiredTension] = useState(
+        props.route.params.desiredTension
+    );
+    const [stringType, setStringType] = useState(props.route.params.stringType);
 
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
         setState(data);
+        setDisableSave(false);
     };
 
     //create one object to send to the api request
@@ -41,7 +44,7 @@ export const OrderEditForm = (props) => {
     };
 
     const updateOrder = async () => {
-        await ordersPut(user, orderDetails._id, buildBody());
+        await ordersPut(user, props.route.params._id, buildBody());
         props.navigation.pop();
     };
 
@@ -74,7 +77,7 @@ export const OrderEditForm = (props) => {
                     />
                 </TouchableOpacity>
             </Appbar>
-            {/* will seperate into components later */}
+
             <View style={styles.container}>
                 <View
                     style={{
@@ -85,223 +88,47 @@ export const OrderEditForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        {/* <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Model
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={orderDetails.model}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return { ...current, model: val };
-                                    });
-                                }}
-                            />
-                        </View> */}
                         <EditTextInput
+                            initialValue={model}
                             handler={inputHandler}
-                            setState={setOrderDetails}
+                            setState={setModel}
                             title={"Model"}
                         />
 
                         <EditTextInput
+                            initialValue={racketBrand}
                             handler={inputHandler}
-                            setState={setOrderDetails}
-                            title={"Model"}
+                            setState={setRacketBrand}
+                            title={"racketBrand"}
                         />
 
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Racket Brand
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={orderDetails.racketBrand}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return { ...current, racketBrand: val };
-                                    });
-                                }}
-                            />
-                        </View>
+                        <EditTextInput
+                            initialValue={recTension}
+                            handler={inputHandler}
+                            setState={setRecTension}
+                            title={"Rec. Tension Range"}
+                        />
 
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Rec. Tension Range
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={orderDetails.recTension}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return { ...current, recTension: val };
-                                    });
-                                }}
-                            />
-                        </View>
+                        <EditTextInput
+                            initialValue={stringPattern}
+                            handler={inputHandler}
+                            setState={setStringPattern}
+                            title={"String Pattern"}
+                        />
 
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        String Pattern
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={orderDetails.stringPattern}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return {
-                                            ...current,
-                                            stringPattern: val,
-                                        };
-                                    });
-                                }}
-                            />
-                        </View>
+                        <EditTextInput
+                            initialValue={desiredTension}
+                            handler={inputHandler}
+                            setState={setDesiredTension}
+                            title={"Desired Tension"}
+                        />
 
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Desired Tension
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={orderDetails.desiredTension}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return {
-                                            ...current,
-                                            desiredTension: val,
-                                        };
-                                    });
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        String Type
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={orderDetails.stringType}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return {
-                                            ...current,
-                                            stringType: val,
-                                        };
-                                    });
-                                }}
-                            />
-                        </View>
+                        <EditTextInput
+                            initialValue={stringType}
+                            handler={inputHandler}
+                            setState={setStringType}
+                            title={"String Type"}
+                        />
                     </View>
                 </View>
             </View>
@@ -313,24 +140,5 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
-    },
-
-    submitButton: {
-        alignSelf: "center",
-        position: "absolute",
-
-        bottom: 20,
-    },
-    text: {
-        color: "#FFD700",
-        textAlign: "center",
-    },
-    textInput: {
-        width: "100%",
-        borderColor: "#FFD700",
-        color: "#FFD700",
-        backgroundColor: "#36454f",
-        fontSize: 20,
-        textAlign: "center",
     },
 });

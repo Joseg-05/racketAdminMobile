@@ -1,6 +1,8 @@
 import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { TextInput } from "react-native-paper";
 
-export const EditTextInput = () => {
+export const EditTextInput = ({ initialValue, handler, setState, title }) => {
     return (
         <View>
             <TextInput
@@ -12,7 +14,7 @@ export const EditTextInput = () => {
                             color: "#FFD700",
                         }}
                     >
-                        Model
+                        {title}
                     </Text>
                 }
                 underlineColor="#FFD700"
@@ -24,15 +26,23 @@ export const EditTextInput = () => {
                         text: "white",
                     },
                 }}
-                value={orderDetails.model}
+                value={initialValue}
                 style={styles.textInput}
                 onChangeText={(val) => {
-                    setDisableSave(false);
-                    setOrderDetails((current) => {
-                        return { ...current, model: val };
-                    });
+                    handler(val, setState);
                 }}
             />
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    textInput: {
+        width: "100%",
+        borderColor: "#FFD700",
+        color: "#FFD700",
+        backgroundColor: "#36454f",
+        fontSize: 20,
+        textAlign: "center",
+    },
+});
