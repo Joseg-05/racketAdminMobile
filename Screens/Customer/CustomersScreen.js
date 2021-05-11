@@ -7,7 +7,7 @@ import {
     SafeAreaView,
     FlatList,
     TouchableOpacity,
-    PlatForm
+    PlatForm,
 } from "react-native";
 import { UserContext } from "../../context/UserContext";
 import { Swipeable } from "react-native-gesture-handler";
@@ -19,7 +19,8 @@ import { Appbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT =
+    Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 // screen that will handle creating and viewing customers
 const CustomersScreen = (props) => {
@@ -68,18 +69,20 @@ const CustomersScreen = (props) => {
     };
 
     return (
-            <View>
-            <View style={{
-            width: "100%",
-            height: STATUS_BAR_HEIGHT,
-            backgroundColor: "#1e3d58"
-        }}></View>
-             <StatusBar style="light" backgroundColor="#1e3d58" />
+        <View>
+            <View
+                style={{
+                    width: "100%",
+                    height: STATUS_BAR_HEIGHT,
+                    backgroundColor: "#1e3d58",
+                }}
+            ></View>
+            <StatusBar style="light" backgroundColor="#1e3d58" />
             <Appbar
                 style={{
                     minWidth: "100%",
                     backgroundColor: "#1e3d58",
-                    height: "9%"
+                    height: "9%",
                 }}
             >
                 <Appbar.Content title="Customers" />
@@ -96,8 +99,7 @@ const CustomersScreen = (props) => {
                     }}
                 />
             </Appbar>
-           
-            
+
             <FlatList
                 data={customers}
                 renderItem={({ item }) => {
@@ -126,8 +128,7 @@ const CustomersScreen = (props) => {
                     await createCustomer();
                 }}
             ></Button>
-    </View>
-        
+        </View>
     );
 };
 

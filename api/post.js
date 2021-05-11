@@ -63,3 +63,22 @@ export const createCustomers = async (user) => {
         console.log(error);
     }
 };
+
+//Create order
+export const orderPost = async (user, id, data) => {
+    try {
+        const result = await axios.post(
+            `${BASE_URL}/orders/${id}`,
+
+            { ...data },
+            {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        );
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+};

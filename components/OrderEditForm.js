@@ -16,14 +16,6 @@ export const OrderEditForm = (props) => {
         ...props.route.params,
     });
 
-    let firstRender = true;
-    // useEffect(() => {
-    //     if (firstRender) firstRender = false;
-    //     else {
-    //         setDisableSave(true);
-    //     }
-    // }, [orderDetails]);
-
     const updateOrder = async () => {
         const allowedUpdates = [
             "racketBrand",

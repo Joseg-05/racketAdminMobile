@@ -3,10 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../context/UserContext";
+import DropDownPicker from "react-native-dropdown-picker";
 
 import { StatusBar } from "expo-status-bar";
 
-import { ordersPut } from "../api/put";
+import { ordersPost } from "../api/post";
 
 export const OrderAddForm = (props) => {
     const user = useContext(UserContext);
@@ -15,20 +16,20 @@ export const OrderAddForm = (props) => {
     const [textInputModel, setTextInputModel] = useState("");
     const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
 
-    const updateOrder = async () => {
-        if (!checkTextInput()) return;
+    //states for dropdown pickers
+    // const [open, setOpen] = useState(false);
+    // const [value, setValue] = useState(null);
+    // const [items, setItems] = useState([
+    //     { label: "Apple", value: "apple" },
+    //     { label: "Banana", value: "banana" },
+    // ]);
 
-        const dataBody = {};
-        const orderDetailsBody = Object.keys(orderDetails);
-
-        orderDetailsBody.forEach((el) => {
-            if (allowedUpdates.includes(el)) dataBody[el] = orderDetails[el];
-        });
-
-        await ordersPut(user, orderDetails._id, dataBody);
-        props.navigation.pop();
+    const createOrder = async () => {
+        await ordersPost(user);
     };
-
+    //build the body json
+    //that will be posted to create an order in the api
+    const buildBody = (element) => {};
     const checkTextInputValidation = () => {
         const alertString = [];
         if (!textInputModel.trim()) {
@@ -70,7 +71,7 @@ export const OrderAddForm = (props) => {
                     }}
                     disabled={false}
                     onPress={async () => {
-                        await updateOrder();
+                        await createOrder();
                     }}
                 >
                     <Appbar.Content
@@ -91,6 +92,16 @@ export const OrderAddForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
+                        {/* <View style={{ width: 350 }}>
+                            <DropDownPicker
+                                open={open}
+                                value={value}
+                                items={items}
+                                setOpen={setOpen}
+                                setValue={setValue}
+                                setItems={setItems}
+                            />
+                        </View> */}
                         <View>
                             <TextInput
                                 mode="flat"
@@ -173,7 +184,7 @@ export const OrderAddForm = (props) => {
                                 }}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    console.log(val);
+                                    setTextInputRacketBrand(val);
                                 }}
                             />
                         </View>
@@ -202,13 +213,7 @@ export const OrderAddForm = (props) => {
                                 }}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return {
-                                            ...current,
-                                            stringPattern: val,
-                                        };
-                                    });
+                                    setTextInputRacketBrand(val);
                                 }}
                             />
                         </View>
@@ -237,13 +242,7 @@ export const OrderAddForm = (props) => {
                                 }}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return {
-                                            ...current,
-                                            desiredTension: val,
-                                        };
-                                    });
+                                    setTextInputRacketBrand(val);
                                 }}
                             />
                         </View>
@@ -272,13 +271,7 @@ export const OrderAddForm = (props) => {
                                 }}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setOrderDetails((current) => {
-                                        return {
-                                            ...current,
-                                            stringType: val,
-                                        };
-                                    });
+                                    setTextInputRacketBrand(val);
                                 }}
                             />
                         </View>
