@@ -4,7 +4,8 @@ import Constants from "expo-constants";
 import { CustomerEditForm } from "../../components/Customer/CustomerEditForm";
 import { StatusBar } from "expo-status-bar";
 
-const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT =
+    Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 export const CustomerEditScreen = (props) => {
     return (
@@ -12,7 +13,8 @@ export const CustomerEditScreen = (props) => {
             <View
                 style={{
                     width: "100%",
-                    height: STATUS_BAR_HEIGHT + 20,
+                    height:
+                        STATUS_BAR_HEIGHT + (Platform.OS === "ios" ? 0 : 20),
                     backgroundColor: "#1e3d58",
                 }}
             ></View>
