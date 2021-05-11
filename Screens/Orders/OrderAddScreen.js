@@ -5,7 +5,6 @@ import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { OrderAddForm } from "../../components/OrderAddForm";
 import { StatusBar } from "expo-status-bar";
-import DropDownPicker from "react-native-dropdown-picker";
 
 const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
 

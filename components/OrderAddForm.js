@@ -8,13 +8,17 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { StatusBar } from "expo-status-bar";
 
 import { ordersPost } from "../api/post";
+import { AddTextInput } from "./AddTextInput";
 
 export const OrderAddForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    const [textInputModel, setTextInputModel] = useState("");
-    const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
+    const [model, setModel] = useState("");
+    const [racketBrand, setRacketBrand] = useState("");
+    const [recTension, setRecTension] = useState("");
+    const [stringPattern, setStringPattern] = useState("");
+    const [desiredTension, setDesiredTension] = useState("");
 
     //states for dropdown pickers
     // const [open, setOpen] = useState(false);
@@ -24,19 +28,25 @@ export const OrderAddForm = (props) => {
     //     { label: "Banana", value: "banana" },
     // ]);
 
+    //handle passing data from child to parent
+    const inputHandler = (data, setState) => {
+        setState(data);
+    };
+
     const createOrder = async () => {
         await ordersPost(user);
     };
+
     //build the body json
     //that will be posted to create an order in the api
     const buildBody = (element) => {};
     const checkTextInputValidation = () => {
         const alertString = [];
-        if (!textInputModel.trim()) {
+        if (!model.trim()) {
             alertString.push("Model");
         }
 
-        if (!textInputRacketBrand.trim()) {
+        if (!racketBrand.trim()) {
             alertString.push("Racket Brand");
         }
 
@@ -74,14 +84,10 @@ export const OrderAddForm = (props) => {
                         await createOrder();
                     }}
                 >
-                    <Appbar.Content
-                        // color={disableSave ? "gray" : "white"}
-                        color={"white"}
-                        title="Add"
-                    />
+                    <Appbar.Content color={"white"} title="Add" />
                 </TouchableOpacity>
             </Appbar>
-            {/* will seperate into components later */}
+
             <View style={styles.container}>
                 <View
                     style={{
@@ -92,189 +98,36 @@ export const OrderAddForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        {/* <View style={{ width: 350 }}>
-                            <DropDownPicker
-                                open={open}
-                                value={value}
-                                items={items}
-                                setOpen={setOpen}
-                                setValue={setValue}
-                                setItems={setItems}
-                            />
-                        </View> */}
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Model
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputModel(val);
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Racket Brand
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputRacketBrand(val);
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Rec. Tension Range
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputRacketBrand(val);
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        String Pattern
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputRacketBrand(val);
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Desired Tension
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputRacketBrand(val);
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        String Type
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputRacketBrand(val);
-                                }}
-                            />
-                        </View>
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setRacketBrand}
+                            title={"Racket Brand"}
+                        />
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setModel}
+                            title={"Model"}
+                        />
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setStringPattern}
+                            title={"String Pattern"}
+                        />
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setRecTension}
+                            title={"Rec. Tension Range"}
+                        />
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setDesiredTension}
+                            title={"Desired Tension"}
+                        />
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setStringPattern}
+                            title={"String Type"}
+                        />
                     </View>
                 </View>
             </View>
