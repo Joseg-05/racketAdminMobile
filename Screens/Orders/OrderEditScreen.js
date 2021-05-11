@@ -11,13 +11,13 @@ export const OrderEditScreen = (props) => {
     useEffect(() => {}, [props]);
     return (
         <View style={styles.container}>
-            {/* <View
+            <View
                 style={{
                     width: "100%",
-                    height: STATUS_BAR_HEIGHT,
+                    height: STATUS_BAR_HEIGHT + 20,
                     backgroundColor: "#1e3d58",
                 }}
-            ></View> */}
+            ></View>
             <OrderEditForm {...props} />
         </View>
     );
@@ -26,7 +26,7 @@ export const OrderEditScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
+        // paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
         justifyContent: "center",
