@@ -26,7 +26,7 @@ export const CustomerAddScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight,
+        paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
         justifyContent: "center",
