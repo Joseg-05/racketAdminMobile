@@ -65,11 +65,10 @@ export const createCustomers = async (user) => {
 };
 
 //Create order
-export const orderPost = async (user, id, data) => {
+export const orderPost = async (user, data) => {
     try {
         const result = await axios.post(
-            `${BASE_URL}/orders/${id}`,
-
+            `${BASE_URL}/orders/609011c8ba3383001574a838`,
             { ...data },
             {
                 headers: {

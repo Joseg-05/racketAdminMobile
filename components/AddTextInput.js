@@ -27,6 +27,7 @@ export const AddTextInput = ({ handler, title, setState }) => {
                     },
                 }}
                 style={styles.textInput}
+                //on change text save data to parent component
                 onChangeText={(val) => {
                     handler(val, setState);
                 }}
@@ -36,21 +37,6 @@ export const AddTextInput = ({ handler, title, setState }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "column",
-        flex: 1,
-    },
-
-    submitButton: {
-        alignSelf: "center",
-        position: "absolute",
-
-        bottom: 20,
-    },
-    text: {
-        color: "#FFD700",
-        textAlign: "center",
-    },
     textInput: {
         width: "100%",
         borderColor: "#FFD700",

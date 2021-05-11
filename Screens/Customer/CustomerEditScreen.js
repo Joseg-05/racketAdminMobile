@@ -1,23 +1,24 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, Text, Platform , View} from "react-native";
+import { SafeAreaView, StyleSheet, Text, Platform, View } from "react-native";
 import Constants from "expo-constants";
-import { CustomerEditForm } from "../../components/CustomerEditForm";
+import { CustomerEditForm } from "../../components/Customer/CustomerEditForm";
 import { StatusBar } from "expo-status-bar";
 
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
 
 export const CustomerEditScreen = (props) => {
     return (
-        <View style={styles.container}> 
-            <View style={{
-            width: "100%",
-            height: STATUS_BAR_HEIGHT,
-            backgroundColor: "#1e3d58"
-            }}></View>
+        <View style={styles.container}>
+            <View
+                style={{
+                    width: "100%",
+                    height: STATUS_BAR_HEIGHT,
+                    backgroundColor: "#1e3d58",
+                }}
+            ></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
             <CustomerEditForm {...props} />
-       </View>
-      
+        </View>
     );
 };
 

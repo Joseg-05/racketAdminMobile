@@ -2,74 +2,82 @@ import React, { useEffect, useContext, useState, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 import { StatusBar } from "expo-status-bar";
 
-import { ordersPut } from "../api/put";
+import { ordersPut } from "../../api/put";
 
-export const CustomerEditForm = (props) => {
+export const CustomerAddForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    // const [orderDetails, setOrderDetails] = useState({
-    //     ...props.route.params,
-    // });
-
-    const [customerDetails, setCustomerDetails] = useState({
-        ...props.route.params.itemData,
-    });
-
-    let firstRender = true;
-    // useEffect(() => {
-    //     if (firstRender) firstRender = false;
-    //     else {
-    //         setDisableSave(true);
-    //     }
-    // }, [orderDetails]);
+    const [textInputModel, setTextInputModel] = useState("");
+    const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
 
     const updateOrder = async () => {
-        const allowedUpdates = ["name", "phone"];
-        const dataBody = {};
-        //orderDetailsBody
-        const customerDetailsBody = Object.keys(customerDetails);
+        if (!checkTextInput()) return;
 
-        customerDetailsBody.forEach((el) => {
-            if (allowedUpdates.includes(el)) dataBody[el] = customerDetails[el];
+        const dataBody = {};
+        const orderDetailsBody = Object.keys(orderDetails);
+
+        orderDetailsBody.forEach((el) => {
+            if (allowedUpdates.includes(el)) dataBody[el] = orderDetails[el];
         });
 
-        await ordersPut(user, customerDetails._id, dataBody);
+        await ordersPut(user, orderDetails._id, dataBody);
         props.navigation.pop();
     };
 
-    console.log(customerDetails);
+    const checkTextInputValidation = () => {
+        const alertString = [];
+        if (!textInputModel.trim()) {
+            alertString.push("Model");
+        }
+
+        if (!textInputRacketBrand.trim()) {
+            alertString.push("Racket Brand");
+        }
+
+        if (alertString.length > 0) {
+            alert(
+                "Please fill out the following fields:\n" +
+                    alertString.join(", ")
+            );
+            return false;
+        }
+
+        return true;
+    };
+
     return (
         <View>
             <Appbar
                 style={{
                     minWidth: "100%",
                     backgroundColor: "#1e3d58",
-                    height: "9%"
+                    height: "9%",
                 }}
             >
                 <Appbar.Action
                     icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
                 />
-                <Appbar.Content title="Edit Customer" />
+                <Appbar.Content title="Customer Customer" />
                 <TouchableOpacity
                     style={{
                         marginTop: 14,
                         marginRight: 10,
                     }}
-                    disabled={disableSave}
+                    disabled={false}
                     onPress={async () => {
                         await updateOrder();
                     }}
                 >
                     <Appbar.Content
-                        color={disableSave ? "gray" : "white"}
-                        title="Save"
+                        // color={disableSave ? "gray" : "white"}
+                        color={"white"}
+                        title="Add"
                     />
                 </TouchableOpacity>
             </Appbar>
@@ -106,14 +114,9 @@ export const CustomerEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={customerDetails.name}
-                                //value={props.route.params.itemData.name}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setCustomerDetails((current) => {
-                                        return { ...current, name: val };
-                                    });
+                                    setTextInputModel(val);
                                 }}
                             />
                         </View>
@@ -140,14 +143,9 @@ export const CustomerEditForm = (props) => {
                                         text: "white",
                                     },
                                 }}
-                                value={customerDetails.phoneNumber}
-                                //value={props.route.params.itemData.name}
                                 style={styles.textInput}
                                 onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setCustomerDetails((current) => {
-                                        return { ...current, phone: val };
-                                    });
+                                    setTextInputRacketBrand(val);
                                 }}
                             />
                         </View>
@@ -183,4 +181,3 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 });
-// test push

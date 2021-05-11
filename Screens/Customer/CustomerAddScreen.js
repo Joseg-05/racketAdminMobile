@@ -3,20 +3,22 @@ import { View, StyleSheet, Platform } from "react-native";
 import Constants from "expo-constants";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
-import { CustomerAddForm } from "../../components/CustomerAddForm";
+import { CustomerAddForm } from "../../components/Customer/CustomerAddForm";
 import { StatusBar } from "expo-status-bar";
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
+const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
 
 export const CustomerAddScreen = (props) => {
     return (
         <View style={styles.container}>
-             <View style={{
-            width: "100%",
-            height: STATUS_BAR_HEIGHT,
-            backgroundColor: "#1e3d58"
-            }}></View>
+            <View
+                style={{
+                    width: "100%",
+                    height: STATUS_BAR_HEIGHT,
+                    backgroundColor: "#1e3d58",
+                }}
+            ></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
-            <CustomerAddForm  {...props} />
+            <CustomerAddForm {...props} />
         </View>
     );
 };

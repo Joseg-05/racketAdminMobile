@@ -1,45 +1,42 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, TextInput, Appbar } from "react-native-paper";
-import { Feather, Fontisto } from "@expo/vector-icons";
-import { UserContext } from "../context/UserContext";
-import DropDownPicker from "react-native-dropdown-picker";
-
-import { StatusBar } from "expo-status-bar";
-
-import { ordersPost } from "../api/post";
-import { AddTextInput } from "./AddTextInput";
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Appbar } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
+import { UserContext } from "../../context/UserContext";
+import { orderPost } from "../../api/post";
+import { AddTextInput } from "../AddTextInput";
 
 export const OrderAddForm = (props) => {
     const user = useContext(UserContext);
 
-    const [disableSave, setDisableSave] = useState(true);
     const [model, setModel] = useState("");
     const [racketBrand, setRacketBrand] = useState("");
     const [recTension, setRecTension] = useState("");
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
 
-    //states for dropdown pickers
-    // const [open, setOpen] = useState(false);
-    // const [value, setValue] = useState(null);
-    // const [items, setItems] = useState([
-    //     { label: "Apple", value: "apple" },
-    //     { label: "Banana", value: "banana" },
-    // ]);
-
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
         setState(data);
     };
 
-    const createOrder = async () => {
-        await ordersPost(user);
+    //create one object to send to the api request
+    const buildBody = () => {
+        console.log({ racketBrand });
+        return {
+            racketBrand,
+            recTension,
+            stringPattern,
+            desiredTension,
+            model,
+        };
     };
 
-    //build the body json
-    //that will be posted to create an order in the api
-    const buildBody = (element) => {};
+    const createOrder = async () => {
+        await orderPost(user, buildBody());
+    };
+
+    //will implement later
     const checkTextInputValidation = () => {
         const alertString = [];
         if (!model.trim()) {
@@ -139,24 +136,5 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
-    },
-
-    submitButton: {
-        alignSelf: "center",
-        position: "absolute",
-
-        bottom: 20,
-    },
-    text: {
-        color: "#FFD700",
-        textAlign: "center",
-    },
-    textInput: {
-        width: "100%",
-        borderColor: "#FFD700",
-        color: "#FFD700",
-        backgroundColor: "#36454f",
-        fontSize: 20,
-        textAlign: "center",
     },
 });
