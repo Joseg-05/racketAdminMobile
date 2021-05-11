@@ -14,6 +14,7 @@ export const OrderAddForm = (props) => {
     const [recTension, setRecTension] = useState("");
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
+    const [stringType, setStringType] = useState("");
 
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
@@ -22,13 +23,13 @@ export const OrderAddForm = (props) => {
 
     //create one object to send to the api request
     const buildBody = () => {
-        console.log({ racketBrand });
         return {
             racketBrand,
             recTension,
             stringPattern,
             desiredTension,
             model,
+            stringType,
         };
     };
 

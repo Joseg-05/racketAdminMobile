@@ -2,37 +2,46 @@ import React, { useEffect, useContext, useState, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 import { StatusBar } from "expo-status-bar";
 
-import { ordersPut } from "../api/put";
+import { ordersPut } from "../../api/put";
+
+import { EditTextInput } from "../EditTextInput";
 
 export const OrderEditForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
+    const [model, setModel] = useState("");
+    const [racketBrand, setRacketBrand] = useState("");
+    const [recTension, setRecTension] = useState("");
+    const [stringPattern, setStringPattern] = useState("");
+    const [stringType, setStringStype] = useState("");
     const [orderDetails, setOrderDetails] = useState({
         ...props.route.params,
     });
 
+    //handle passing data from child to parent
+    const inputHandler = (data, setState) => {
+        setState(data);
+    };
+
+    //create one object to send to the api request
+    const buildBody = () => {
+        return {
+            racketBrand,
+            recTension,
+            stringPattern,
+            desiredTension,
+            model,
+            stringType,
+        };
+    };
+
     const updateOrder = async () => {
-        const allowedUpdates = [
-            "racketBrand",
-            "model",
-            "stringPattern",
-            "recTension",
-            "desiredTension",
-            "stringType",
-        ];
-        const dataBody = {};
-        const orderDetailsBody = Object.keys(orderDetails);
-
-        orderDetailsBody.forEach((el) => {
-            if (allowedUpdates.includes(el)) dataBody[el] = orderDetails[el];
-        });
-
-        await ordersPut(user, orderDetails._id, dataBody);
+        await ordersPut(user, orderDetails._id, buildBody());
         props.navigation.pop();
     };
 
@@ -76,7 +85,7 @@ export const OrderEditForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        <View>
+                        {/* <View>
                             <TextInput
                                 mode="flat"
                                 label={
@@ -107,7 +116,18 @@ export const OrderEditForm = (props) => {
                                     });
                                 }}
                             />
-                        </View>
+                        </View> */}
+                        <EditTextInput
+                            handler={inputHandler}
+                            setState={setOrderDetails}
+                            title={"Model"}
+                        />
+
+                        <EditTextInput
+                            handler={inputHandler}
+                            setState={setOrderDetails}
+                            title={"Model"}
+                        />
 
                         <View>
                             <TextInput

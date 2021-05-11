@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 
 import { StatusBar } from "expo-status-bar";
 
-import { ordersPut } from "../api/put";
+import { ordersPut } from "../../api/put";
 
 export const CustomerEditForm = (props) => {
     const user = useContext(UserContext);

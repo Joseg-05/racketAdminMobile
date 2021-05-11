@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { UserContext } from "../../context/UserContext";
 import { Swipeable } from "react-native-gesture-handler";
-import { CustomerRow } from "../../components/CustomerRow";
+import { CustomerRow } from "../../components/Customer/CustomerRow";
 import { createCustomers } from "../../api/post";
 import { customersGet } from "../../api/get";
 import Constants from "expo-constants";

@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, Platform, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 
-import { OrderEditForm } from "../../components/OrderEditForm";
+import { OrderEditForm } from "../../components/Order/OrderEditForm";
 
 const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
 

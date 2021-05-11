@@ -11,7 +11,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
-import { OrderRow } from "../../components/OrderRow";
+import { OrderRow } from "../../components/Order/OrderRow";
 import { UserContext } from "../../context/UserContext";
 import { Appbar } from "react-native-paper";
 import { Swipeable } from "react-native-gesture-handler";
