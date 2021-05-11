@@ -9,13 +9,13 @@ const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;
 export const CustomerEditScreen = (props) => {
     return (
         <View style={styles.container}>
-            {/* <View
+            <View
                 style={{
                     width: "100%",
-                    height: STATUS_BAR_HEIGHT,
+                    height: STATUS_BAR_HEIGHT + 20,
                     backgroundColor: "#1e3d58",
                 }}
-            ></View> */}
+            ></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
             <CustomerEditForm {...props} />
         </View>
@@ -25,7 +25,7 @@ export const CustomerEditScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
+        // paddingTop: Platform.OS === "ios" ? 0 : Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
         justifyContent: "center",
