@@ -25,7 +25,7 @@ export const OrderEditForm = (props) => {
     );
     const [stringType, setStringType] = useState(props.route.params.stringType);
 
-    //handle passing data from child to parent
+    //handle passing data from child to parent ... if time permits will convert to redux
     const inputHandler = (data, setState) => {
         setState(data);
         setDisableSave(false);
@@ -99,7 +99,7 @@ export const OrderEditForm = (props) => {
                             initialValue={racketBrand}
                             handler={inputHandler}
                             setState={setRacketBrand}
-                            title={"racketBrand"}
+                            title={"Racket Brand"}
                         />
 
                         <EditTextInput

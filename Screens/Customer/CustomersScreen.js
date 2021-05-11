@@ -69,7 +69,7 @@ const CustomersScreen = (props) => {
     };
 
     return (
-        <View>
+        <View style={styles.container}>
             <View
                 style={{
                     width: "100%",
@@ -99,35 +99,30 @@ const CustomersScreen = (props) => {
                     }}
                 />
             </Appbar>
-
-            <FlatList
-                data={customers}
-                renderItem={({ item }) => {
-                    return (
-                        <TouchableOpacity
-                            onPress={() => {
-                                props.navigation.navigate(
-                                    "CustomerEditScreen",
-                                    {
-                                        itemData: item,
-                                    }
-                                );
-                            }}
-                        >
-                            <Swipeable renderLeftActions={LeftAction}>
-                                <CustomerRow customerDetails={item} />
-                            </Swipeable>
-                        </TouchableOpacity>
-                    );
-                }}
-                keyExtractor={(item) => item._id}
-            />
-            <Button
-                title="push to create test"
-                onPress={async () => {
-                    await createCustomer();
-                }}
-            ></Button>
+            <View style={{ width: "100%", flex: 1 }}>
+                <FlatList
+                    data={customers}
+                    renderItem={({ item }) => {
+                        return (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    props.navigation.navigate(
+                                        "CustomerEditScreen",
+                                        {
+                                            itemData: item,
+                                        }
+                                    );
+                                }}
+                            >
+                                <Swipeable renderLeftActions={LeftAction}>
+                                    <CustomerRow customerDetails={item} />
+                                </Swipeable>
+                            </TouchableOpacity>
+                        );
+                    }}
+                    keyExtractor={(item) => item._id}
+                />
+            </View>
         </View>
     );
 };
@@ -135,7 +130,6 @@ const CustomersScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight,
         alignItems: "center",
         backgroundColor: "#36454f",
         justifyContent: "center",

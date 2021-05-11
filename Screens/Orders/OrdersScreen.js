@@ -107,7 +107,8 @@ export const OrdersScreen = (props) => {
                     }}
                 />
             </Appbar>
-            <View style={{ width: "100%" }}>
+            <View style={{ width: "100%", flex: 1 }}>
+                {/* Add a filter component here! */}
                 {userOrders && (
                     <FlatList
                         data={userOrders}

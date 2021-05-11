@@ -1,10 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 import { orderPost } from "../../api/post";
+import { customersGet } from "../../api/get";
 import { AddTextInput } from "../AddTextInput";
+
+import ModalSelector from "react-native-modal-selector";
 
 export const OrderAddForm = (props) => {
     const user = useContext(UserContext);
@@ -15,6 +18,7 @@ export const OrderAddForm = (props) => {
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
     const [stringType, setStringType] = useState("");
+    const [customers, setCustomers] = useState(null);
 
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
@@ -36,6 +40,14 @@ export const OrderAddForm = (props) => {
     const createOrder = async () => {
         await orderPost(user, buildBody());
     };
+
+    useEffect(() => {
+        async function getCustomers() {
+            const data = await customersGet(user);
+            setCustomers(data.data);
+        }
+        getCustomers();
+    }, []);
 
     //will implement later
     const checkTextInputValidation = () => {
