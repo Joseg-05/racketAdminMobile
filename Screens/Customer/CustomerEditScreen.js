@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useEffect }from "react";
 import { SafeAreaView, StyleSheet, Text, Platform, View } from "react-native";
 import Constants from "expo-constants";
 import { CustomerEditForm } from "../../components/Customer/CustomerEditForm";
@@ -8,6 +8,7 @@ const STATUS_BAR_HEIGHT =
     Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 export const CustomerEditScreen = (props) => {
+    //useEffect(() => {}, [props]);
     return (
         <View style={styles.container}>
             <View
