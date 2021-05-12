@@ -4,9 +4,10 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
+import {EditCustomerTextInput} from "../Customer/CustomerEditTextInput"
 import { StatusBar } from "expo-status-bar";
 
-import { ordersPut } from "../../api/put";
+import { customersPut } from "../../api/put";
 
 export const CustomerEditForm = (props) => {
     const user = useContext(UserContext);
@@ -16,9 +17,12 @@ export const CustomerEditForm = (props) => {
     //     ...props.route.params,
     // });
 
-    const [customerDetails, setCustomerDetails] = useState({
-        ...props.route.params.itemData,
-    });
+    const [name, setName] = useState(
+        props.route.params.itemData.name )
+
+    const [phoneNumber, setPhoneNumber] = useState(
+        props.route.params.itemData.phoneNumber)
+    
     // TASK: convert object keys -> seperate states
 
     let firstRender = true;
@@ -35,21 +39,20 @@ export const CustomerEditForm = (props) => {
         setDisableSave(false);
     };
 
+    //create one object to send to the api request
+    const buildBody = () => {
+        return {
+            name,
+            phoneNumber,
+        };
+    };
+
     const updateOrder = async () => {
-        const allowedUpdates = ["name", "phone"];
-        const dataBody = {};
-        //orderDetailsBody
-        const customerDetailsBody = Object.keys(customerDetails);
-
-        customerDetailsBody.forEach((el) => {
-            if (allowedUpdates.includes(el)) dataBody[el] = customerDetails[el];
-        });
-
-        await ordersPut(user, customerDetails._id, dataBody);
+        await customersPut(user, props.route.params._id, buildBody());
         props.navigation.pop();
     };
 
-    console.log(customerDetails);
+    
     return (
         <View>
             <Appbar
@@ -91,73 +94,19 @@ export const CustomerEditForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Name
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={customerDetails.name}
-                                //value={props.route.params.itemData.name}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setCustomerDetails((current) => {
-                                        return { ...current, name: val };
-                                    });
-                                }}
-                            />
-                        </View>
+                        <EditCustomerTextInput
+                            initialValue={name}
+                            handler={inputHandler}
+                            setState={setName}
+                            title={"Name"}
+                        />
 
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Phone
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                value={customerDetails.phoneNumber}
-                                //value={props.route.params.itemData.name}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setDisableSave(false);
-                                    setCustomerDetails((current) => {
-                                        return { ...current, phone: val };
-                                    });
-                                }}
-                            />
-                        </View>
+                        <EditCustomerTextInput
+                            initialValue={phoneNumber}
+                            handler={inputHandler}
+                            setState={setPhoneNumber}
+                            title={"phone"}
+                        />
                     </View>
                 </View>
             </View>
