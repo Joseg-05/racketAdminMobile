@@ -4,7 +4,9 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
-import { EditCustomerTextInput } from "../Customer/CustomerEditTextInput";
+
+import { EditTextInput } from "../EditTextInput";
+
 import { StatusBar } from "expo-status-bar";
 
 import { customersPut } from "../../api/put";
@@ -93,14 +95,14 @@ export const CustomerEditForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        <EditCustomerTextInput
+                        <EditTextInput 
                             initialValue={name}
                             handler={inputHandler}
                             setState={setName}
                             title={"Name"}
                         />
 
-                        <EditCustomerTextInput
+                        <EditTextInput 
                             initialValue={phoneNumber}
                             handler={inputHandler}
                             setState={setPhoneNumber}

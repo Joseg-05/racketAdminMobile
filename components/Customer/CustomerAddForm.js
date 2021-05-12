@@ -4,9 +4,13 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
+import {AddTextInput } from "../AddTextInput";
+
 import { StatusBar } from "expo-status-bar";
 
 import { ordersPut } from "../../api/put";
+
+import { createCustomers } from "../../api/post";
 
 export const CustomerAddForm = (props) => {
     const user = useContext(UserContext);
@@ -15,6 +19,8 @@ export const CustomerAddForm = (props) => {
     const [textInputModel, setTextInputModel] = useState("");
     const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
 
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
     const updateOrder = async () => {
         if (!checkTextInput()) return;
 
@@ -27,6 +33,14 @@ export const CustomerAddForm = (props) => {
 
         await ordersPut(user, orderDetails._id, dataBody);
         props.navigation.pop();
+    };
+
+    //create one object to send to the api request
+    const buildBody = () => {
+        return {
+            name,
+            phone,
+        };
     };
 
     const checkTextInputValidation = () => {
@@ -50,6 +64,17 @@ export const CustomerAddForm = (props) => {
         return true;
     };
 
+    const createCustomer = async () => {
+        
+        await createCustomers(user, buildBody());
+        console.log(user)
+    };
+
+    //handle passing data from child to parent
+    const inputHandler = (data, setState) => {
+        setState(data);
+    };
+
     return (
         <View>
             <Appbar
@@ -71,7 +96,7 @@ export const CustomerAddForm = (props) => {
                     }}
                     disabled={false}
                     onPress={async () => {
-                        await updateOrder();
+                        await createCustomer();
                     }}
                 >
                     <Appbar.Content
@@ -92,63 +117,16 @@ export const CustomerAddForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Name
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputModel(val);
-                                }}
-                            />
-                        </View>
-
-                        <View>
-                            <TextInput
-                                mode="flat"
-                                label={
-                                    <Text
-                                        style={{
-                                            fontSize: 25,
-                                            color: "#FFD700",
-                                        }}
-                                    >
-                                        Phone
-                                    </Text>
-                                }
-                                underlineColor="#FFD700"
-                                placeholderTextColor="white"
-                                selectionColor="white"
-                                theme={{
-                                    colors: {
-                                        primary: "#FFD700",
-                                        text: "white",
-                                    },
-                                }}
-                                style={styles.textInput}
-                                onChangeText={(val) => {
-                                    setTextInputRacketBrand(val);
-                                }}
-                            />
-                        </View>
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setName}
+                            title={"Name"}
+                        />
+                        <AddTextInput
+                            handler={inputHandler}
+                            setState={setPhone}
+                            title={"Phone"}
+                        />
                     </View>
                 </View>
             </View>
