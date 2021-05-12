@@ -43,14 +43,13 @@ export const register = async (email, password) => {
 };
 
 //Create Customer
-export const createCustomers = async (user) => {
+export const customersPost = async (user, data) => {
     try {
         const result = await axios.post(
             `${BASE_URL}/customers`,
 
             {
-                name: `customer test with orders for user ${user.user.email}`,
-                phoneNumber: "805-268-2192",
+                ...data,
             },
             {
                 headers: {

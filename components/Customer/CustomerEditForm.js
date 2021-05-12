@@ -4,7 +4,9 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
+
 import { EditTextInput } from "../EditTextInput";
+
 import { StatusBar } from "expo-status-bar";
 
 import { customersPut } from "../../api/put";
@@ -17,12 +19,12 @@ export const CustomerEditForm = (props) => {
     //     ...props.route.params,
     // });
 
-    const [name, setName] = useState(
-        props.route.params.itemData.name )
+    const [name, setName] = useState(props.route.params.itemData.name);
 
     const [phoneNumber, setPhoneNumber] = useState(
-        props.route.params.itemData.phoneNumber)
-    
+        props.route.params.itemData.phoneNumber
+    );
+
     // TASK: convert object keys -> seperate states
 
     let firstRender = true;
@@ -52,7 +54,6 @@ export const CustomerEditForm = (props) => {
         props.navigation.pop();
     };
 
-    
     return (
         <View>
             <Appbar
