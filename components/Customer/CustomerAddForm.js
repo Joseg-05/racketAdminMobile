@@ -10,7 +10,7 @@ import { StatusBar } from "expo-status-bar";
 
 import { ordersPut } from "../../api/put";
 
-import { createCustomers } from "../../api/post";
+import { customersPost } from "../../api/post";
 
 export const CustomerAddForm = (props) => {
     const user = useContext(UserContext);
@@ -20,7 +20,7 @@ export const CustomerAddForm = (props) => {
     const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
 
     const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const updateOrder = async () => {
         if (!checkTextInput()) return;
 
@@ -39,7 +39,7 @@ export const CustomerAddForm = (props) => {
     const buildBody = () => {
         return {
             name,
-            phone,
+            phoneNumber,
         };
     };
 
@@ -66,7 +66,7 @@ export const CustomerAddForm = (props) => {
 
     const createCustomer = async () => {
         
-        await createCustomers(user, buildBody());
+        await customersPost(user, buildBody());
         console.log(user)
     };
 
@@ -124,7 +124,7 @@ export const CustomerAddForm = (props) => {
                         />
                         <AddTextInput
                             handler={inputHandler}
-                            setState={setPhone}
+                            setState={setPhoneNumber}
                             title={"Phone"}
                         />
                     </View>
