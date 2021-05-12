@@ -30,11 +30,15 @@ const CustomersScreen = (props) => {
 
     //on mount get customers associated with user
     useEffect(() => {
-        async function getCustomers() {
-            const data = await customersGet(user);
-            setCustomers(data.data);
-        }
-        getCustomers();
+        const popEvent = props.navigation.addListener("focus", () => {
+            async function getCustomers() {
+                const data = await customersGet(user);
+                setCustomers(data.data);
+            }
+            getCustomers();
+        });
+
+        return popEvent;
     }, []);
 
     async function createCustomer() {
