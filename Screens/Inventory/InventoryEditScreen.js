@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { SafeAreaView, StyleSheet, Platform, View, Text } from 'react-native'
+import { SafeAreaView, StyleSheet, Platform, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Constants from 'expo-constants'
 
@@ -8,10 +8,10 @@ import { InventoryEditForm } from '../../components/Inventory/InventoryEditForm'
 const STATUS_BAR_HEIGHT =
     Platform.OS === 'ios' ? 20 : Constants.statusBarHeight
 
-export const InventoryDetailsScreen = (props) => {
+export const InventoryEditScreen = (props) => {
     useEffect(() => {}, [props])
     return (
-        <View style={styles.container} >
+        <View style={styles.container}>
             <View
                 style={{
                     width: '100%',
@@ -21,14 +21,14 @@ export const InventoryDetailsScreen = (props) => {
             ></View>
             <InventoryEditForm {...props} />
         </View>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        backgroundColor: "#36454f",
-        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: '#36454f',
+        justifyContent: 'center',
     }
 })

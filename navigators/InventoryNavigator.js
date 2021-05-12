@@ -2,7 +2,8 @@ import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { InventoryScreen } from "../Screens/Inventory/InventoryScreen";
-import { InventoryDetailsScreen } from "../Screens/Inventory/InventoryDetailsScreen";
+import { InventoryEditScreen } from "../Screens/Inventory/InventoryEditScreen";
+import { InventoryAddScreen } from '../Screens/Inventory/InventoryAddScreen'
 
 export const Stack = createStackNavigator();
 
@@ -14,10 +15,8 @@ export const InventoryNavigator = (props) => {
             }}
         >
             <Stack.Screen name="InventoryScreen" component={InventoryScreen} />
-            <Stack.Screen
-                name="InventoryDetailsScreen"
-                component={InventoryDetailsScreen}
-            />
+            <Stack.Screen name="InventoryEditScreen" component={InventoryEditScreen} />
+            <Stack.Screen name="InventoryAddScreen" component={InventoryAddScreen} />
         </Stack.Navigator>
     );
 };

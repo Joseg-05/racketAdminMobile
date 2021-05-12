@@ -36,7 +36,7 @@ export const MainTabNavigator = () => {
             />
             <MainTab.Screen
                 options={{
-                    tabBarLabel: "orders",
+                    tabBarLabel: "Orders",
                     tabBarIcon: ({ color }) => (
                         <Ionicons
                             name="tennisball-outline"
