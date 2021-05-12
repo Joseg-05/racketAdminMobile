@@ -1,53 +1,59 @@
-import React, { useContext, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Appbar } from 'react-native-paper'
-import { Feather } from '@expo/vector-icons'
-import { UserContext } from '../../context/UserContext'
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Appbar } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
+import { UserContext } from "../../context/UserContext";
 
-import { stockPut } from '../../api/put'
+import { stockPut } from "../../api/put";
 
-import { EditTextInput } from '../EditTextInput'
+import { EditTextInput } from "../EditTextInput";
 
 export const InventoryEditForm = (props) => {
-    const user = useContext(UserContext)
+    const user = useContext(UserContext);
 
-    const [disableSave, setDisableSave] = useState(true)
-    const [productName, setProductName] = useState(props.route.params.productName)
-    const [quantity, setQuantity] = useState(props.route.params.quantity.toString())
+    const [disableSave, setDisableSave] = useState(true);
+    const [productName, setProductName] = useState(
+        props.route.params.productName
+    );
+    const [quantity, setQuantity] = useState(
+        props.route.params.quantity.toString()
+    );
+
+    console.log("_id: " + props.route.params._id);
 
     // handle passing data from child to parent ... if time permits will convert to redux
     const inputHandler = (data, setState) => {
-        setState(data)
-        setDisableSave(false)
-    }
+        setState(data);
+        setDisableSave(false);
+    };
 
     // create one object to send to the api request
     const buildBody = () => {
         return {
             productName,
             quantity,
-        }
-    }
+        };
+    };
 
     const updateInventory = async () => {
-        await stockPut(user, props.route.params._id, buildBody())
-        console.log('_id: ' + props.route.params._id)
-        props.navigation.pop()
-    }
+        await stockPut(user, props.route.params._id, buildBody());
+        console.log("_id: " + props.route.params._id);
+        props.navigation.pop();
+    };
 
     return (
         <View>
             <Appbar
                 style={{
-                    minWidth: '100%',
-                    backgroundColor: '#1e3d58',
+                    minWidth: "100%",
+                    backgroundColor: "#1e3d58",
                 }}
             >
                 <Appbar.Action
-                    icon={() => <Feather name='x' size={24} color='white' />}
+                    icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
                 />
-                <Appbar.Content title='Edit Inventory' />
+                <Appbar.Content title="Edit Inventory" />
                 <TouchableOpacity
                     style={{
                         marginTop: 14,
@@ -55,12 +61,12 @@ export const InventoryEditForm = (props) => {
                     }}
                     disabled={disableSave}
                     onPress={async () => {
-                        await updateInventory()
+                        await updateInventory();
                     }}
                 >
                     <Appbar.Content
-                        color={disableSave ? 'gray' : 'white'}
-                        title='Save'
+                        color={disableSave ? "gray" : "white"}
+                        title="Save"
                     />
                 </TouchableOpacity>
             </Appbar>
@@ -68,13 +74,13 @@ export const InventoryEditForm = (props) => {
             <View style={styles.container}>
                 <View
                     style={{
-                        minWidth: '100%',
-                        flexDirection: 'row',
-                        alignContent: 'center',
-                        alignItems: 'center',
+                        minWidth: "100%",
+                        flexDirection: "row",
+                        alignContent: "center",
+                        alignItems: "center",
                     }}
                 >
-                    <View style={{ minWidth: '100%' }}>
+                    <View style={{ minWidth: "100%" }}>
                         <EditTextInput
                             initialValue={productName}
                             handler={inputHandler}
@@ -92,12 +98,12 @@ export const InventoryEditForm = (props) => {
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'column',
+        flexDirection: "column",
         flex: 1,
-    }
-})
+    },
+});

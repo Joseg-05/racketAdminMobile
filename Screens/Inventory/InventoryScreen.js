@@ -1,72 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Platform } from "react-native";
-import { StatusBar } from 'expo-status-bar'
-import Constants from 'expo-constants'
-import { Ionicons } from '@expo/vector-icons'
-import { InventoryRow } from '../../components/Inventory/InventoryRow'
-import { UserContext } from '../../context/UserContext'
-import { Appbar } from 'react-native-paper'
-import { Swipeable } from 'react-native-gesture-handler'
-import { stockGet } from '../../api/get'
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Platform,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+import { Ionicons } from "@expo/vector-icons";
+import { InventoryRow } from "../../components/Inventory/InventoryRow";
+import { UserContext } from "../../context/UserContext";
+import { Appbar } from "react-native-paper";
+import { Swipeable } from "react-native-gesture-handler";
+import { stockGet } from "../../api/get";
 
 const STATUS_BAR_HEIGHT =
-    Platform.OS === "ios" ? 20 : Constants.statusBarHeight
+    Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 // screen to handle viewing inventory
 export const InventoryScreen = (props) => {
-    const user = React.useContext(UserContext)
-    const [userInventory, setUserInventory] = useState(null)
+    const user = React.useContext(UserContext);
+    const [userInventory, setUserInventory] = useState(null);
 
     // on mount, get inventory for user
     useEffect(() => {
         // refresh orders when focusing back on this screen
         const popEvent = props.navigation.addListener("focus", () => {
             const getInventory = async () => {
-                const inventory = await stockGet(user)
+                const inventory = await stockGet(user);
 
-                // clean(inventory)
-                setUserInventory(inventory)
-            }
+                setUserInventory(inventory);
+            };
 
-            getInventory()
-        })
+            getInventory();
+        });
 
-        return popEvent
-    }, [props.navigation])
-
-    const clean = (inventory) => {
-        setUserInventory(inventory)
-    }
-
-    const LeftAction = (progress, dragX) => {
-        return (
-            <View
-                style={{
-                    fontSize: 20,
-                    color: "white",
-                    backgroundColor: "#FFD700",
-                    width: "100%",
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                    flex: 1,
-                }}
-            >
-                <Text
-                    style={{
-                        padding: 20,
-                        fontSize: 20,
-                        color: "black",
-                        fontWeight: "bold",
-                    }}
-                >
-                    Completed
-                </Text>
-            </View>
-        )
-    }
+        return popEvent;
+    }, [props.navigation]);
 
     return (
-        <View style={styles.container} >
+        <View style={styles.container}>
             <View
                 style={{
                     width: "100%",
@@ -93,11 +68,11 @@ export const InventoryScreen = (props) => {
                         />
                     )}
                     onPress={() => {
-                        props.navigation.navigate("InventoryAddScreen")
+                        props.navigation.navigate("InventoryAddScreen");
                     }}
                 />
             </Appbar>
-            <View style={{ width: "100%", flex: 1 }} >
+            <View style={{ width: "100%", flex: 1 }}>
                 {/* add a filter component here! */}
                 {userInventory && (
                     <FlatList
@@ -111,14 +86,12 @@ export const InventoryScreen = (props) => {
                                             {
                                                 ...item,
                                             }
-                                        )
+                                        );
                                     }}
                                 >
-                                    <Swipeable renderLeftAction={LeftAction}>
-                                        <InventoryRow inventoryDetails={item} />
-                                    </Swipeable>
+                                    <InventoryRow inventoryDetails={item} />
                                 </TouchableOpacity>
-                            )
+                            );
                         }}
                         keyExtractor={(item) => item._id}
                     />
@@ -128,7 +101,6 @@ export const InventoryScreen = (props) => {
     );
 };
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -136,4 +108,4 @@ const styles = StyleSheet.create({
         backgroundColor: "#36454f",
     },
     Text: {},
-})
+});

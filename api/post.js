@@ -81,3 +81,21 @@ export const orderPost = async (user, data) => {
         console.log(error);
     }
 };
+
+//create stock
+export const stockPost = async (user, data) => {
+    try {
+        const result = await axios.post(
+            `${BASE_URL}/stock`,
+            { ...data },
+            {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
+        );
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+};
