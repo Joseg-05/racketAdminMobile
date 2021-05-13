@@ -9,7 +9,6 @@ export const CustomerRow = ({ customerDetails }) => {
                     {`${customerDetails.name} `}
                 </Text>
             </View>
-            <View>{/* <Text style={styles.racketBrand}>hello</Text> */}</View>
         </View>
     );
 };

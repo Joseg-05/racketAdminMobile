@@ -4,41 +4,29 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
-
 import { EditTextInput } from "../EditTextInput";
-
-import { StatusBar } from "expo-status-bar";
-
 import { customersPut } from "../../api/put";
+
+import { EditHeaderBar } from "../EditHeaderBar";
 
 export const CustomerEditForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    // const [orderDetails, setOrderDetails] = useState({
-    //     ...props.route.params,
-    // });
-
     const [name, setName] = useState(props.route.params.itemData.name);
-
     const [phoneNumber, setPhoneNumber] = useState(
         props.route.params.itemData.phoneNumber
     );
-
-    // TASK: convert object keys -> seperate states
-
-    let firstRender = true;
-    // useEffect(() => {
-    //     if (firstRender) firstRender = false;
-    //     else {
-    //         setDisableSave(true);
-    //     }
-    // }, [orderDetails]);
 
     //handle passing data from child to parent ... if time permits will convert to redux
     const inputHandler = (data, setState) => {
         setState(data);
         setDisableSave(false);
+    };
+
+    const saveHandler = async () => {
+        await customersPut(user, props.route.params.itemData._id, buildBody());
+        props.navigation.pop();
     };
 
     //create one object to send to the api request
@@ -49,42 +37,15 @@ export const CustomerEditForm = (props) => {
         };
     };
 
-    const updateOrder = async () => {
-        await customersPut(user, props.route.params._id, buildBody());
-        props.navigation.pop();
-    };
-
     return (
         <View>
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                    height: "9%",
-                }}
-            >
-                <Appbar.Action
-                    icon={() => <Feather name="x" size={24} color="white" />}
-                    onPress={() => props.navigation.pop()}
-                />
-                <Appbar.Content title="Edit Customer" />
-                <TouchableOpacity
-                    style={{
-                        marginTop: 14,
-                        marginRight: 10,
-                    }}
-                    disabled={disableSave}
-                    onPress={async () => {
-                        await updateOrder();
-                    }}
-                >
-                    <Appbar.Content
-                        color={disableSave ? "gray" : "white"}
-                        title="Save"
-                    />
-                </TouchableOpacity>
-            </Appbar>
-            {/* TASK : seperate into EditTextInput.js Component */}
+            <EditHeaderBar
+                {...props}
+                saveHandler={saveHandler}
+                title={"Edit Customer"}
+                operationTitle={"Save"}
+            />
+
             <View style={styles.container}>
                 <View
                     style={{
@@ -95,14 +56,14 @@ export const CustomerEditForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
-                        <EditTextInput 
+                        <EditTextInput
                             initialValue={name}
                             handler={inputHandler}
                             setState={setName}
                             title={"Name"}
                         />
 
-                        <EditTextInput 
+                        <EditTextInput
                             initialValue={phoneNumber}
                             handler={inputHandler}
                             setState={setPhoneNumber}

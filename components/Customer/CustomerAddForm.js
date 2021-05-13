@@ -4,43 +4,35 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
-import {AddTextInput } from "../AddTextInput";
-
 import { StatusBar } from "expo-status-bar";
 
-import { ordersPut } from "../../api/put";
-
 import { customersPost } from "../../api/post";
+
+import { EditHeaderBar } from "../EditHeaderBar";
+
+import { AddTextInput } from "../AddTextInput";
 
 export const CustomerAddForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    const [textInputModel, setTextInputModel] = useState("");
-    const [textInputRacketBrand, setTextInputRacketBrand] = useState("");
-
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const updateOrder = async () => {
-        if (!checkTextInput()) return;
 
-        const dataBody = {};
-        const orderDetailsBody = Object.keys(orderDetails);
-
-        orderDetailsBody.forEach((el) => {
-            if (allowedUpdates.includes(el)) dataBody[el] = orderDetails[el];
-        });
-
-        await ordersPut(user, orderDetails._id, dataBody);
-        props.navigation.pop();
-    };
-
-    //create one object to send to the api request
     const buildBody = () => {
         return {
             name,
             phoneNumber,
         };
+    };
+
+    const inputHandler = (data, setState) => {
+        setState(data);
+    };
+
+    const saveHandler = async () => {
+        await customersPost(user, buildBody());
+        props.navigation.pop();
     };
 
     const checkTextInputValidation = () => {
@@ -64,49 +56,15 @@ export const CustomerAddForm = (props) => {
         return true;
     };
 
-    const createCustomer = async () => {
-        
-        await customersPost(user, buildBody());
-        console.log(user)
-    };
-
-    //handle passing data from child to parent
-    const inputHandler = (data, setState) => {
-        setState(data);
-    };
-
     return (
         <View>
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                    height: "9%",
-                }}
-            >
-                <Appbar.Action
-                    icon={() => <Feather name="x" size={24} color="white" />}
-                    onPress={() => props.navigation.pop()}
-                />
-                <Appbar.Content title="Customer Customer" />
-                <TouchableOpacity
-                    style={{
-                        marginTop: 14,
-                        marginRight: 10,
-                    }}
-                    disabled={false}
-                    onPress={async () => {
-                        await createCustomer();
-                    }}
-                >
-                    <Appbar.Content
-                        // color={disableSave ? "gray" : "white"}
-                        color={"white"}
-                        title="Add"
-                    />
-                </TouchableOpacity>
-            </Appbar>
-            {/* will seperate into components later */}
+            <EditHeaderBar
+                {...props}
+                saveHandler={saveHandler}
+                title={"Add Customer"}
+                operationTitle={"Add"}
+            />
+
             <View style={styles.container}>
                 <View
                     style={{
@@ -122,10 +80,11 @@ export const CustomerAddForm = (props) => {
                             setState={setName}
                             title={"Name"}
                         />
+
                         <AddTextInput
                             handler={inputHandler}
                             setState={setPhoneNumber}
-                            title={"Phone"}
+                            title={"Phone Number"}
                         />
                     </View>
                 </View>
