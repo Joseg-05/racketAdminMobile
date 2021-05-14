@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 import { orderPost } from "../../api/post";
 import { customersGet } from "../../api/get";
-import { AddTextInput } from "../AddTextInput";
+import { AddTextInput } from "../shared/TextInputs/AddInput";
 
 import ModalSelector from "react-native-modal-selector";
 

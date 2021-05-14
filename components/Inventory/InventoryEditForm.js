@@ -4,7 +4,7 @@ import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 import { stockPut } from "../../api/put";
-import { EditTextInput, EditNumberInput } from "../EditTextInput";
+import { EditTextInput, EditNumberInput } from "../shared/TextInputs/EditInput";
 
 export const InventoryEditForm = (props) => {
     const user = useContext(UserContext);

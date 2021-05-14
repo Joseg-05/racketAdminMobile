@@ -3,47 +3,50 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     SafeAreaView,
     FlatList,
     TouchableOpacity,
-    PlatForm,
+    Platform,
 } from "react-native";
-import { UserContext } from "../../context/UserContext";
-import { Swipeable } from "react-native-gesture-handler";
-import { CustomerRow } from "../../components/Customer/CustomerRow";
-import { createCustomers } from "../../api/post";
-import { customersGet } from "../../api/get";
-import Constants from "expo-constants";
-import { Appbar } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
+import { Ionicons } from "@expo/vector-icons";
+import { OrderRow } from "../../components/Order/OrderRow";
+import { UserContext } from "../../context/UserContext";
+import { Appbar } from "react-native-paper";
+import { Swipeable } from "react-native-gesture-handler";
+import { ordersGet } from "../../api/get";
 
 const STATUS_BAR_HEIGHT =
     Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
-// screen that will handle creating and viewing customers
-const CustomersScreen = (props) => {
+// screen that will handle creating and viewing orders
+export const OrdersMainScreen = (props) => {
     const user = React.useContext(UserContext);
+    const [userOrders, setUserOrders] = useState(null);
 
-    const [customers, setCustomers] = useState([]);
-
-    //on mount get customers associated with user
+    //on mount get orders for user that are not completed yet
     useEffect(() => {
+        //refresh orders when focusing back on to this screen
         const popEvent = props.navigation.addListener("focus", () => {
-            async function getCustomers() {
-                const data = await customersGet(user);
-                setCustomers(data.data);
-            }
-            getCustomers();
+            const getOrders = async () => {
+                const orders = await ordersGet(user);
+
+                clean(orders);
+            };
+            getOrders();
         });
-
         return popEvent;
-    }, []);
+    }, [props.navigation]);
 
-    async function createCustomer() {
-        await createCustomers(user);
-    }
+    const clean = (orders) => {
+        if (orders !== undefined) {
+            const results = orders.filter((e) => {
+                return e.completed === false;
+            });
+            setUserOrders(results);
+        }
+    };
 
     const LeftAction = (progress, dragX) => {
         return (
@@ -82,6 +85,7 @@ const CustomersScreen = (props) => {
                 }}
             ></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
+            {/* will seperate in to component later */}
             <Appbar
                 style={{
                     minWidth: "100%",
@@ -89,7 +93,7 @@ const CustomersScreen = (props) => {
                     height: "9%",
                 }}
             >
-                <Appbar.Content title="Customers" />
+                <Appbar.Content title="Orders" />
                 <Appbar.Action
                     icon={() => (
                         <Ionicons
@@ -99,33 +103,36 @@ const CustomersScreen = (props) => {
                         />
                     )}
                     onPress={() => {
-                        props.navigation.navigate("CustomerAddScreen");
+                        props.navigation.navigate("OrderAddScreen");
                     }}
                 />
             </Appbar>
             <View style={{ width: "100%", flex: 1 }}>
-                <FlatList
-                    data={customers}
-                    renderItem={({ item }) => {
-                        return (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    props.navigation.navigate(
-                                        "CustomerEditScreen",
-                                        {
-                                            itemData: item,
-                                        }
-                                    );
-                                }}
-                            >
-                                <Swipeable renderLeftActions={LeftAction}>
-                                    <CustomerRow customerDetails={item} />
-                                </Swipeable>
-                            </TouchableOpacity>
-                        );
-                    }}
-                    keyExtractor={(item) => item._id}
-                />
+                {/* Add a filter component here! */}
+                {userOrders && (
+                    <FlatList
+                        data={userOrders}
+                        renderItem={({ item }) => {
+                            return (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        props.navigation.navigate(
+                                            "OrderEditScreen",
+                                            {
+                                                ...item,
+                                            }
+                                        );
+                                    }}
+                                >
+                                    <Swipeable renderLeftActions={LeftAction}>
+                                        <OrderRow orderDetails={item} />
+                                    </Swipeable>
+                                </TouchableOpacity>
+                            );
+                        }}
+                        keyExtractor={(item) => item._id}
+                    />
+                )}
             </View>
         </View>
     );
@@ -136,8 +143,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: "#36454f",
-        justifyContent: "center",
     },
+    Text: {},
 });
-
-export default CustomersScreen;

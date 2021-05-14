@@ -4,10 +4,10 @@ import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
 
-import { EditTextInput } from "../EditTextInput";
+import { EditTextInput } from "../shared/TextInputs/EditInput";
 import { customersPut } from "../../api/put";
 
-import { EditHeaderBar } from "../EditHeaderBar";
+import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 
 export const CustomerEditForm = (props) => {
     const user = useContext(UserContext);

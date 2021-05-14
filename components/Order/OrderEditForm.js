@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 
 import { ordersPut } from "../../api/put";
 
-import { EditTextInput } from "../EditTextInput";
+import { EditTextInput } from "../shared/TextInputs/EditInput";
 
 export const OrderEditForm = (props) => {
     const user = useContext(UserContext);

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Platform } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    TouchableOpacity,
+    Platform,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,7 +20,7 @@ const STATUS_BAR_HEIGHT =
     Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 // screen to handle viewing inventory
-export const InventoryScreen = (props) => {
+export const InventoryMainScreen = (props) => {
     const user = React.useContext(UserContext);
     const [userInventory, setUserInventory] = useState(null);
 
@@ -58,7 +65,7 @@ export const InventoryScreen = (props) => {
                     }}
                 />
             </Appbar>
-            
+
             <View style={styles.inventory}>
                 {/* add a filter component here! */}
                 {userInventory && (

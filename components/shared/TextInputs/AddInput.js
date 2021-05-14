@@ -41,7 +41,7 @@ export const AddNumberInput = ({ handler, title, setState }) => {
         <View>
             <TextInput
                 mode="flat"
-                keyboardType='number-pad'
+                keyboardType="number-pad"
                 label={
                     <Text
                         style={{

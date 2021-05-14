@@ -8,9 +8,9 @@ import { StatusBar } from "expo-status-bar";
 
 import { customersPost } from "../../api/post";
 
-import { EditHeaderBar } from "../EditHeaderBar";
+import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 
-import { AddTextInput } from "../AddTextInput";
+import { AddTextInput } from "../shared/TextInputs/AddInput";
 
 export const CustomerAddForm = (props) => {
     const user = useContext(UserContext);
