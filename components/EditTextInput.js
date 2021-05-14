@@ -36,6 +36,41 @@ export const EditTextInput = ({ initialValue, handler, setState, title }) => {
     );
 };
 
+export const EditNumberInput = ({ initialValue, handler, setState, title }) => {
+    return (
+        <View>
+            <TextInput
+                keyboardType='numeric'
+                mode='flat'
+                label={
+                    <Text
+                        style={{
+                            fontSize: 25,
+                            color: '#FFD700'
+                        }}
+                    >
+                        {title}
+                    </Text>
+                }
+                underlineColor='#FFD700'
+                placeholderTextColor='white'
+                selectionColor='white'
+                theme={{
+                    colors: {
+                        primary: '#FFD700',
+                        text: 'white',
+                    },
+                }}
+                value={initialValue}
+                style={styles.textInput}
+                onChangeText={(val) => {
+                    handler(val, setState)
+                }}
+            />
+        </View>
+    )
+}
+
 const styles = StyleSheet.create({
     textInput: {
         width: "100%",

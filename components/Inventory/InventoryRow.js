@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 
 export const InventoryRow = ({ inventoryDetails }) => {
-    // const [date, setDate] = useState(inventoryDetails.dueDate)
-
-    // useEffect(() => {
-    //     const formatDate = new Date(date)
-    //     setDate(` ${formatDate.getMonth()}/${formatDate.getDate()} `)
-    //     console.log()
-    // }, [])
-
     return (
         <View style={styles.inventoryContainer} >
             <View>

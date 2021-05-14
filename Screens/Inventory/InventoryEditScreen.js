@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet, Platform, View } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import Constants from 'expo-constants'
-
 import { InventoryEditForm } from '../../components/Inventory/InventoryEditForm'
 
 const STATUS_BAR_HEIGHT =

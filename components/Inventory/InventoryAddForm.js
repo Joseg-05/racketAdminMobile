@@ -1,22 +1,18 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Appbar } from 'react-native-paper'
 import { Feather } from '@expo/vector-icons'
 import { UserContext } from '../../context/UserContext'
-// import { stockPost } from '../../api/post'
-import { AddTextInput } from '../AddTextInput'
-import { customersGet } from '../../api/get'
+import { stockPost } from '../../api/post'
+import { AddTextInput, AddNumberInput } from '../AddTextInput'
+
 
 export const InventoryAddForm = (props) => {
     const user = useContext(UserContext)
 
+    const [disableSave, setDisableSave] = useState(true);
     const [productName, setProductName] = useState("")
     const [quantity, setQuantity] = useState("")
-
-    // handle passing data from child to parent
-    const inputHandler = (data, setState) => {
-        setState(data)
-    }
 
     // create one object to send to api request
     const buildBody = () => {
@@ -26,18 +22,16 @@ export const InventoryAddForm = (props) => {
         }
     }
 
-    const createInventory = async () => {
-        // await stockPost(user, buildBody())
+    // handle passing data from child to parent
+    const inputHandler = (data, setState) => {
+        setState(data)
+        setDisableSave(false)
     }
 
-    useEffect(() => {
-        async function getCustomers() {
-            const data = await customersGet(user)
-            setCustomers(data.data)
-        }
-        getCustomers()
-    }, [])
-
+    const createInventory = async () => {
+        await stockPost(user, buildBody())
+        props.navigation.pop()
+    }
 
     return (
         <View>
@@ -51,38 +45,34 @@ export const InventoryAddForm = (props) => {
                     icon={() => <Feather name='x' size={24} color='white' />}
                     onPress={() => props.navigation.pop()}
                 />
-                <Appbar.Content title="Add Inventory" />
+                <Appbar.Content title='Add Inventory' />
                 <TouchableOpacity
                     style={{
                         marginTop: 14,
                         marginRight: 10,
                     }}
-                    disabled={false}
+                    disabled={disableSave}
                     onPress={async () => {
                         await createInventory()
                     }}
                 >
-                    <Appbar.Content color={'white'} title='Add Inventory' />
+                    <Appbar.Content
+                        color={disableSave ? 'gray' : 'white'} 
+                        title='Add'
+                    />
                 </TouchableOpacity>
             </Appbar>
 
             <View style={styles.container} >
-                <View
-                    style={{
-                        minWidth: '100%',
-                        flexDirection: 'row',
-                        alignContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <View style={{ minWidth: '100%' }}>
+                <View style={styles.input} >
+                    <View style={styles.minWidth}>
                         <AddTextInput
                             handler={inputHandler}
                             setState={setProductName}
                             title={"Product Name"}
                         />
 
-                        <AddTextInput
+                        <AddNumberInput
                             handler={inputHandler}
                             setState={setQuantity}
                             title={"Quantity"}
@@ -94,9 +84,19 @@ export const InventoryAddForm = (props) => {
     )
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
         flex: 1,
-    }
+    },
+    input: {
+        minWidth: '100%',
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    minWidth: {
+        minWidth: '100%',
+    },
 })

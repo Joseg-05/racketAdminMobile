@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    TouchableOpacity,
-    Platform,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
@@ -30,7 +23,6 @@ export const InventoryScreen = (props) => {
         const popEvent = props.navigation.addListener("focus", () => {
             const getInventory = async () => {
                 const inventory = await stockGet(user);
-
                 setUserInventory(inventory);
             };
 
@@ -42,13 +34,7 @@ export const InventoryScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <View
-                style={{
-                    width: "100%",
-                    height: STATUS_BAR_HEIGHT,
-                    backgroundColor: "#1e3d58",
-                }}
-            ></View>
+            <View style={styles.statusBar}></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
             {/* will separate in to component later */}
             <Appbar
@@ -72,7 +58,8 @@ export const InventoryScreen = (props) => {
                     }}
                 />
             </Appbar>
-            <View style={{ width: "100%", flex: 1 }}>
+            
+            <View style={styles.inventory}>
                 {/* add a filter component here! */}
                 {userInventory && (
                     <FlatList
@@ -107,5 +94,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#36454f",
     },
-    Text: {},
+    statusBar: {
+        width: "100%",
+        height: STATUS_BAR_HEIGHT,
+        backgroundColor: "#1e3d58",
+    },
+    inventory: {
+        width: "100%",
+        flex: 1,
+    },
 });
