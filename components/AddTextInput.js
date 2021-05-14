@@ -36,6 +36,41 @@ export const AddTextInput = ({ handler, title, setState }) => {
     );
 };
 
+export const AddNumberInput = ({ handler, title, setState }) => {
+    return (
+        <View>
+            <TextInput
+                mode="flat"
+                keyboardType='number-pad'
+                label={
+                    <Text
+                        style={{
+                            fontSize: 25,
+                            color: "#FFD700",
+                        }}
+                    >
+                        {title}
+                    </Text>
+                }
+                underlineColor="#FFD700"
+                placeholderTextColor="white"
+                selectionColor="white"
+                theme={{
+                    colors: {
+                        primary: "#FFD700",
+                        text: "white",
+                    },
+                }}
+                style={styles.textInput}
+                //on change text save data to parent component
+                onChangeText={(val) => {
+                    handler(val, setState);
+                }}
+            />
+        </View>
+    );
+};
+
 const styles = StyleSheet.create({
     textInput: {
         width: "100%",
