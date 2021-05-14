@@ -6,16 +6,17 @@ import { UserContext } from "../../context/UserContext";
 import { stockPut } from "../../api/put";
 import { EditTextInput, EditNumberInput } from "../EditTextInput";
 
-
 export const InventoryEditForm = (props) => {
     const user = useContext(UserContext);
 
     const [disableSave, setDisableSave] = useState(true);
-    const [productName, setProductName] = useState(props.route.params.productName);
+    const [productName, setProductName] = useState(
+        props.route.params.productName
+    );
     const [quantity, setQuantity] = useState(props.route.params.quantity);
-    
+
     // below doesnt work with null value if nothing is inputted
-    // const [quantity, setQuantity] = useState(props.route.params.quantity.toString());
+    // const [quantity, setQuantity] = useState(props.route.params.quantity);
 
     // create one object to send to the api request
     const buildBody = () => {
@@ -24,7 +25,7 @@ export const InventoryEditForm = (props) => {
             quantity,
         };
     };
-    
+
     // handle passing data from child to parent ... if time permits will convert to redux
     const inputHandler = (data, setState) => {
         setState(data);
@@ -66,21 +67,21 @@ export const InventoryEditForm = (props) => {
                 </TouchableOpacity>
             </Appbar>
 
-            <View style={styles.container} >
-                <View style={styles.input} >
-                    <View style={styles.minWidth} >
+            <View style={styles.container}>
+                <View style={styles.input}>
+                    <View style={styles.minWidth}>
                         <EditTextInput
                             initialValue={productName}
                             handler={inputHandler}
                             setState={setProductName}
-                            title={'Product Name'}
+                            title={"Product Name"}
                         />
 
                         <EditNumberInput
                             initialValue={quantity}
                             handler={inputHandler}
                             setState={setQuantity}
-                            title={'Quantity'}
+                            title={"Quantity"}
                         />
                     </View>
                 </View>
@@ -89,19 +90,18 @@ export const InventoryEditForm = (props) => {
     );
 };
 
-
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'column',
+        flexDirection: "column",
         flex: 1,
     },
     input: {
-        minWidth: '100%',
-        flexDirection: 'row',
-        alignContent: 'center',
-        alignItems: 'center',
+        minWidth: "100%",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
     },
     minWidth: {
-        minWidth: '100%',
+        minWidth: "100%",
     },
 });
