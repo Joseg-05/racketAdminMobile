@@ -6,16 +6,13 @@ import { useSelector } from "react-redux";
 import { stockPut } from "../../api/put";
 import { EditTextInput, EditNumberInput } from "../shared/TextInputs/EditInput";
 
-
 export const InventoryEditForm = (props) => {
     const user = useSelector((state) => state.user);
-
+    const [disableSave, setDisableSave] = useState(false);
     const [productName, setProductName] = useState(
         props.route.params.productName
     );
-    const [quantity, setQuantity] = useState(
-        props.route.params.quantity
-    );
+    const [quantity, setQuantity] = useState(props.route.params.quantity);
 
     // create one object to send to the api request
     const buildBody = () => {
@@ -33,7 +30,7 @@ export const InventoryEditForm = (props) => {
 
     const updateInventory = async () => {
         // validate input and if valid, update inventory
-        let errList = inputValidation()
+        let errList = inputValidation();
 
         // if no errors, put
         if (errList.length === 0) {
@@ -43,8 +40,7 @@ export const InventoryEditForm = (props) => {
         // else alert user of errors
         else {
             alert(
-                "Please fill out the following fields:\n" +
-                errList.join(", ")
+                "Please fill out the following fields:\n" + errList.join(", ")
             );
         }
     };
@@ -54,18 +50,18 @@ export const InventoryEditForm = (props) => {
 
         if (productName.length === 0) {
             alertString.push("Product Name");
-        };
+        }
 
         if (quantity.length === 0) {
             alertString.push("Quantity");
-        };
+        }
 
-        return alertString
+        return alertString;
     };
 
     return (
         <View>
-            <Appbar style={styles.appbar} >
+            <Appbar style={styles.appbar}>
                 <Appbar.Action
                     icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
@@ -79,7 +75,7 @@ export const InventoryEditForm = (props) => {
                         await updateInventory();
                     }}
                 >
-                    <Appbar.Content color='white' title="Save" />
+                    <Appbar.Content color="white" title="Save" />
                 </TouchableOpacity>
             </Appbar>
 
@@ -106,7 +102,7 @@ export const InventoryEditForm = (props) => {
                     style={styles.button}
                     // onPress={}
                 >
-                    <Text style={{color: 'white'}}>Delete</Text>
+                    <Text style={{ color: "white" }}>Delete</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -138,7 +134,7 @@ const styles = StyleSheet.create({
     button: {
         alignContent: "center",
         alignItems: "center",
-        backgroundColor: '#1e3d58',
+        backgroundColor: "#1e3d58",
         fontSize: 20,
         padding: 20,
     },

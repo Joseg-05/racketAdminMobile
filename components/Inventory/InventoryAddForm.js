@@ -10,6 +10,7 @@ import { AddTextInput, AddNumberInput } from "../shared/TextInputs/AddInput";
 export const InventoryAddForm = (props) => {
     const user = useSelector((state) => state.user);
 
+    const [disableSave, setDisableSave] = useState(false);
     const [productName, setProductName] = useState("");
     const [quantity, setQuantity] = useState("");
 
@@ -29,7 +30,7 @@ export const InventoryAddForm = (props) => {
 
     const createInventory = async () => {
         // validate input and if valid, update inventory
-        let errList = inputValidation()
+        let errList = inputValidation();
 
         // if no errors, post
         if (errList.length === 0) {
@@ -39,15 +40,14 @@ export const InventoryAddForm = (props) => {
         // else alert user of errors
         else {
             alert(
-                "Please fill out the following fields:\n" +
-                errList.join(", ")
+                "Please fill out the following fields:\n" + errList.join(", ")
             );
         }
     };
 
     const inputValidation = () => {
         const alertString = [];
-        
+
         if (productName.length === 0) {
             alertString.push("Product Name");
         }
@@ -56,12 +56,12 @@ export const InventoryAddForm = (props) => {
             alertString.push("Quantity");
         }
 
-        return alertString
+        return alertString;
     };
 
     return (
         <View>
-            <Appbar style={styles.appbar} >
+            <Appbar style={styles.appbar}>
                 <Appbar.Action
                     icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
