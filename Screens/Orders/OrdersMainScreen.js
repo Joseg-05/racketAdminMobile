@@ -84,7 +84,6 @@ export const OrdersMainScreen = (props) => {
                 }}
             ></View>
             <StatusBar style="light" backgroundColor="#1e3d58" />
-            {/* will seperate in to component later */}
             <Appbar
                 style={{
                     minWidth: "100%",
@@ -108,7 +107,7 @@ export const OrdersMainScreen = (props) => {
             </Appbar>
             <View style={{ width: "100%", flex: 1 }}>
                 {/* Add a filter component here! */}
-                {userOrders && (
+                {userOrders ? (
                     <FlatList
                         data={userOrders}
                         renderItem={({ item }) => {
@@ -131,6 +130,8 @@ export const OrdersMainScreen = (props) => {
                         }}
                         keyExtractor={(item) => item._id}
                     />
+                ) : (
+                    <View>Apples</View>
                 )}
             </View>
         </View>

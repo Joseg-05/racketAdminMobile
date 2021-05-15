@@ -11,6 +11,7 @@ export const loginUser = (email, password) => async (dispatch, getState) => {
 };
 
 export const logoutUser = (user) => async (dispatch, getState) => {
-    await logout(user.token);
+    await SecureStore.deleteItemAsync("user");
+    await logout(user);
     dispatch({ type: "LOGOUT_USER" });
 };

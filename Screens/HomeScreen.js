@@ -12,7 +12,7 @@ const HomeScreen = (props) => {
             <Button
                 title="logout"
                 onPress={() => {
-                    dispatch(logoutUser(dispatch));
+                    dispatch(logoutUser(user));
                 }}
             ></Button>
             <Text>Welcome to the home page, {user.email}</Text>

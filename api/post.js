@@ -21,13 +21,17 @@ export const login = async (email, password) => {
 };
 
 //Logout User
-export const logout = async (token) => {
+export const logout = async ({ token }) => {
     try {
-        await axios.post(`${BASE_URL}/users/logout`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        await axios.post(
+            `${BASE_URL}/users/logout`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
     } catch (e) {
         console.log(e);
     }
