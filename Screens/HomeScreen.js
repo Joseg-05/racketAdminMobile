@@ -18,6 +18,7 @@ const HomeScreen = (props) => {
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
     return (
+
         <View style={styles.container}>
             <View style={styles.statusBar}></View>
 
@@ -45,6 +46,7 @@ const HomeScreen = (props) => {
             </View>
             
         </View>
+
     );
 };
 
