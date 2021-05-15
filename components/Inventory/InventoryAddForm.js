@@ -10,7 +10,6 @@ import { AddTextInput, AddNumberInput } from "../shared/TextInputs/AddInput";
 export const InventoryAddForm = (props) => {
     const user = useSelector((state) => state.user);
 
-    const [disableSave, setDisableSave] = useState(true);
     const [productName, setProductName] = useState("");
     const [quantity, setQuantity] = useState("");
 
@@ -29,37 +28,54 @@ export const InventoryAddForm = (props) => {
     };
 
     const createInventory = async () => {
-        await stockPost(user, buildBody());
-        props.navigation.pop();
+        // validate input and if valid, update inventory
+        let errList = inputValidation()
+
+        // if no errors, post
+        if (errList.length === 0) {
+            await stockPost(user, buildBody());
+            props.navigation.pop();
+        }
+        // else alert user of errors
+        else {
+            alert(
+                "Please fill out the following fields:\n" +
+                errList.join(", ")
+            );
+        }
+    };
+
+    const inputValidation = () => {
+        const alertString = [];
+        
+        if (productName.length === 0) {
+            alertString.push("Product Name");
+        }
+
+        if (quantity.length === 0) {
+            alertString.push("Quantity");
+        }
+
+        return alertString
     };
 
     return (
         <View>
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                }}
-            >
+            <Appbar style={styles.appbar} >
                 <Appbar.Action
                     icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
                 />
+
                 <Appbar.Content title="Add Inventory" />
+
                 <TouchableOpacity
-                    style={{
-                        marginTop: 14,
-                        marginRight: 10,
-                    }}
-                    disabled={disableSave}
+                    style={styles.add}
                     onPress={async () => {
                         await createInventory();
                     }}
                 >
-                    <Appbar.Content
-                        color={disableSave ? "gray" : "white"}
-                        title="Add"
-                    />
+                    <Appbar.Content color="white" title="Add" />
                 </TouchableOpacity>
             </Appbar>
 
@@ -85,6 +101,14 @@ export const InventoryAddForm = (props) => {
 };
 
 const styles = StyleSheet.create({
+    appbar: {
+        minWidth: "100%",
+        backgroundColor: "#1e3d58",
+    },
+    add: {
+        marginTop: 14,
+        marginRight: 10,
+    },
     container: {
         flexDirection: "column",
         flex: 1,

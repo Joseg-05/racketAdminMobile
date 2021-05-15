@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { stockPut } from "../../api/put";
 import { EditTextInput, EditNumberInput } from "../shared/TextInputs/EditInput";
 
+
 export const InventoryEditForm = (props) => {
     const user = useSelector((state) => state.user);
 
-    const [disableSave, setDisableSave] = useState(true);
     const [productName, setProductName] = useState(
         props.route.params.productName
     );
-    const [quantity, setQuantity] = useState(props.route.params.quantity);
-
-    // below doesnt work with null value if nothing is inputted
-    // const [quantity, setQuantity] = useState(props.route.params.quantity);
+    const [quantity, setQuantity] = useState(
+        props.route.params.quantity
+    );
 
     // create one object to send to the api request
     const buildBody = () => {
@@ -33,37 +32,54 @@ export const InventoryEditForm = (props) => {
     };
 
     const updateInventory = async () => {
-        await stockPut(user, props.route.params._id, buildBody());
-        props.navigation.pop();
+        // validate input and if valid, update inventory
+        let errList = inputValidation()
+
+        // if no errors, put
+        if (errList.length === 0) {
+            await stockPut(user, props.route.params._id, buildBody());
+            props.navigation.pop();
+        }
+        // else alert user of errors
+        else {
+            alert(
+                "Please fill out the following fields:\n" +
+                errList.join(", ")
+            );
+        }
+    };
+
+    const inputValidation = () => {
+        const alertString = [];
+
+        if (productName.length === 0) {
+            alertString.push("Product Name");
+        };
+
+        if (quantity.length === 0) {
+            alertString.push("Quantity");
+        };
+
+        return alertString
     };
 
     return (
         <View>
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                }}
-            >
+            <Appbar style={styles.appbar} >
                 <Appbar.Action
                     icon={() => <Feather name="x" size={24} color="white" />}
                     onPress={() => props.navigation.pop()}
                 />
+
                 <Appbar.Content title="Edit Inventory" />
+
                 <TouchableOpacity
-                    style={{
-                        marginTop: 14,
-                        marginRight: 10,
-                    }}
-                    disabled={disableSave}
+                    style={styles.save}
                     onPress={async () => {
                         await updateInventory();
                     }}
                 >
-                    <Appbar.Content
-                        color={disableSave ? "gray" : "white"}
-                        title="Save"
-                    />
+                    <Appbar.Content color='white' title="Save" />
                 </TouchableOpacity>
             </Appbar>
 
@@ -85,12 +101,27 @@ export const InventoryEditForm = (props) => {
                         />
                     </View>
                 </View>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    // onPress={}
+                >
+                    <Text style={{color: 'white'}}>Delete</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    appbar: {
+        minWidth: "100%",
+        backgroundColor: "#1e3d58",
+    },
+    save: {
+        marginTop: 14,
+        marginRight: 10,
+    },
     container: {
         flexDirection: "column",
         flex: 1,
@@ -103,5 +134,12 @@ const styles = StyleSheet.create({
     },
     minWidth: {
         minWidth: "100%",
+    },
+    button: {
+        alignContent: "center",
+        alignItems: "center",
+        backgroundColor: '#1e3d58',
+        fontSize: 20,
+        padding: 20,
     },
 });

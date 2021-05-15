@@ -43,16 +43,12 @@ export const InventoryMainScreen = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.statusBar}></View>
+
             <StatusBar style="light" backgroundColor="#1e3d58" />
-            {/* will separate in to component later */}
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                    height: "9%",
-                }}
-            >
+
+            <Appbar style={styles.appBar} >
                 <Appbar.Content title="Inventory" />
+                
                 <Appbar.Action
                     icon={() => (
                         <Ionicons
@@ -106,6 +102,11 @@ const styles = StyleSheet.create({
         width: "100%",
         height: STATUS_BAR_HEIGHT,
         backgroundColor: "#1e3d58",
+    },
+    appBar: {
+        minWidth: "100%",
+        backgroundColor: "#1e3d58",
+        height: "9%",
     },
     inventory: {
         width: "100%",
