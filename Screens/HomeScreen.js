@@ -1,19 +1,18 @@
 import React from "react";
-import { UserContext } from "../context/UserContext";
-import { AuthContext } from "../context/AuthContext";
 import { Text, StyleSheet, Button, SafeAreaView } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../store/actions/actions";
 
 // screen that contains the main home page users will be directed to when logged in
 const HomeScreen = (props) => {
-    const { logout } = React.useContext(AuthContext);
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     return (
         <SafeAreaView style={styles.container}>
             <Button
                 title="logout"
-                onPress={async () => {
-                    await logout(user);
+                onPress={() => {
+                    dispatch(logoutUser(dispatch));
                 }}
             ></Button>
             <Text>Welcome to the home page, {user.email}</Text>

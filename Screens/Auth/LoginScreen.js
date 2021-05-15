@@ -8,7 +8,7 @@ import {
     SafeAreaView,
 } from "react-native";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../../store/actions/actions";
 import * as SecureStore from "expo-secure-store";
 
@@ -17,7 +17,19 @@ export const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const user = await SecureStore.getItemAsync("user");
 
+            if (user) {
+                dispatch({
+                    type: "LOGIN_USER",
+                    payload: { ...JSON.parse(user) },
+                });
+            }
+        };
+        getUserInfo();
+    }, []);
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Login</Text>
