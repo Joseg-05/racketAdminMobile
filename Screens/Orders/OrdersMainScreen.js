@@ -131,7 +131,9 @@ export const OrdersMainScreen = (props) => {
                         keyExtractor={(item) => item._id}
                     />
                 ) : (
-                    <View>Apples</View>
+                    <View>
+                        <Text>loading</Text>
+                    </View>
                 )}
             </View>
         </View>

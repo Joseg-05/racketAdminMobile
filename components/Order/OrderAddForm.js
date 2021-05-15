@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { orderPost } from "../../api/post";
 import { customersGet } from "../../api/get";
 import { AddTextInput } from "../shared/TextInputs/AddInput";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import ModalSelector from "react-native-modal-selector";
 
@@ -18,6 +19,16 @@ export const OrderAddForm = (props) => {
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
     const [stringType, setStringType] = useState("");
+
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState("date");
+    const [show, setShow] = useState(false);
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === "ios");
+        setDate(date);
+    };
 
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
@@ -130,6 +141,26 @@ export const OrderAddForm = (props) => {
                             setState={setStringType}
                             title={"String Type"}
                         />
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                setShow(true);
+                            }}
+                        >
+                            <Text>Press here to change date</Text>
+                        </TouchableOpacity>
+
+                        {show && (
+                            <DateTimePicker
+                                style={{ color: "black" }}
+                                testID="dateTimePicker"
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChange}
+                            />
+                        )}
                     </View>
                 </View>
             </View>
