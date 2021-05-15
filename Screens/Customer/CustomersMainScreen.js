@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     PlatForm,
 } from "react-native";
-import { UserContext } from "../../context/UserContext";
+import { useSelector } from "react-redux";
 import { Swipeable } from "react-native-gesture-handler";
 import { CustomerRow } from "../../components/Customer/CustomerRow";
 import { createCustomers } from "../../api/post";
@@ -24,7 +24,7 @@ const STATUS_BAR_HEIGHT =
 
 // screen that will handle creating and viewing customers
 const CustomersMainScreen = (props) => {
-    const user = React.useContext(UserContext);
+    const user = useSelector((state) => state.user);
 
     const [customers, setCustomers] = useState([]);
 

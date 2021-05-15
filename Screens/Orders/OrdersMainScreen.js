@@ -12,17 +12,16 @@ import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { OrderRow } from "../../components/Order/OrderRow";
-import { UserContext } from "../../context/UserContext";
 import { Appbar } from "react-native-paper";
 import { Swipeable } from "react-native-gesture-handler";
 import { ordersGet } from "../../api/get";
-
+import { useSelector } from "react-redux";
 const STATUS_BAR_HEIGHT =
     Platform.OS === "ios" ? 20 : Constants.statusBarHeight;
 
 // screen that will handle creating and viewing orders
 export const OrdersMainScreen = (props) => {
-    const user = React.useContext(UserContext);
+    const user = useSelector((state) => state.user);
     const [userOrders, setUserOrders] = useState(null);
 
     //on mount get orders for user that are not completed yet

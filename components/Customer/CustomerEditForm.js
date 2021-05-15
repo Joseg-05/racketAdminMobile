@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
-import { UserContext } from "../../context/UserContext";
+import { useSelector } from "react-redux";
 
 import { EditTextInput } from "../shared/TextInputs/EditInput";
 import { customersPut } from "../../api/put";
@@ -10,7 +10,7 @@ import { customersPut } from "../../api/put";
 import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 
 export const CustomerEditForm = (props) => {
-    const user = useContext(UserContext);
+    const user = useSelector((state) => state.user);
 
     const [disableSave, setDisableSave] = useState(true);
     const [name, setName] = useState(props.route.params.itemData.name);

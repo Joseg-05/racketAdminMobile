@@ -8,10 +8,13 @@ export const login = async (email, password) => {
             email,
             password,
         });
+
         const user = {
-            ...data,
+            token: data.token,
+            ...data.user,
         };
-        return user;
+
+        return { user: { ...user } };
     } catch (e) {
         console.log(e);
     }
@@ -67,7 +70,7 @@ export const customersPost = async (user, data) => {
 export const orderPost = async (user, data) => {
     try {
         const result = await axios.post(
-            `${BASE_URL}/orders/609a255e1a2cc90015f470e2`,
+            `${BASE_URL}/orders/609ac88529e90800157ecdda`,
             { ...data },
             {
                 headers: {

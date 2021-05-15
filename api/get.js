@@ -32,8 +32,6 @@ export const stockGet = async (user) => {
             },
         });
 
-        console.log(result.data)
-
         return result.data;
     } catch (error) {
         console.log(error);

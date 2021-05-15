@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
-import { UserContext } from "../../context/UserContext";
+import { useSelector } from "react-redux";
 import { orderPost } from "../../api/post";
 import { customersGet } from "../../api/get";
 import { AddTextInput } from "../shared/TextInputs/AddInput";
@@ -10,7 +10,7 @@ import { AddTextInput } from "../shared/TextInputs/AddInput";
 import ModalSelector from "react-native-modal-selector";
 
 export const OrderAddForm = (props) => {
-    const user = useContext(UserContext);
+    const user = useSelector((state) => state.user);
 
     const [model, setModel] = useState("");
     const [racketBrand, setRacketBrand] = useState("");
@@ -18,7 +18,6 @@ export const OrderAddForm = (props) => {
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
     const [stringType, setStringType] = useState("");
-    const [customers, setCustomers] = useState(null);
 
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
@@ -39,15 +38,8 @@ export const OrderAddForm = (props) => {
 
     const createOrder = async () => {
         await orderPost(user, buildBody());
+        props.navigation.pop();
     };
-
-    useEffect(() => {
-        async function getCustomers() {
-            const data = await customersGet(user);
-            setCustomers(data.data);
-        }
-        getCustomers();
-    }, []);
 
     //will implement later
     const checkTextInputValidation = () => {
@@ -135,7 +127,7 @@ export const OrderAddForm = (props) => {
                         />
                         <AddTextInput
                             handler={inputHandler}
-                            setState={setStringPattern}
+                            setState={setStringType}
                             title={"String Type"}
                         />
                     </View>

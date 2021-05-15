@@ -1,15 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
-import { UserContext } from "../../context/UserContext";
-
+import { useSelector } from "react-redux";
 import { ordersPut } from "../../api/put";
 
 import { EditTextInput } from "../shared/TextInputs/EditInput";
 
 export const OrderEditForm = (props) => {
-    const user = useContext(UserContext);
+    const user = useSelector((state) => state.user);
 
     const [disableSave, setDisableSave] = useState(true);
     const [model, setModel] = useState(props.route.params.model);

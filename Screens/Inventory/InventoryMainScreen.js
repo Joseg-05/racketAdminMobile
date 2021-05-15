@@ -11,7 +11,8 @@ import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { InventoryRow } from "../../components/Inventory/InventoryRow";
-import { UserContext } from "../../context/UserContext";
+
+import { useSelector } from "react-redux";
 import { Appbar } from "react-native-paper";
 import { Swipeable } from "react-native-gesture-handler";
 import { stockGet } from "../../api/get";
@@ -21,7 +22,7 @@ const STATUS_BAR_HEIGHT =
 
 // screen to handle viewing inventory
 export const InventoryMainScreen = (props) => {
-    const user = React.useContext(UserContext);
+    const user = useSelector((state) => state.user);
     const [userInventory, setUserInventory] = useState(null);
 
     // on mount, get inventory for user

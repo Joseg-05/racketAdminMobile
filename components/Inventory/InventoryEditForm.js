@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
-import { UserContext } from "../../context/UserContext";
+import { useSelector } from "react-redux";
 import { stockPut } from "../../api/put";
 import { EditTextInput, EditNumberInput } from "../shared/TextInputs/EditInput";
 
 export const InventoryEditForm = (props) => {
-    const user = useContext(UserContext);
+    const user = useSelector((state) => state.user);
 
     const [disableSave, setDisableSave] = useState(true);
     const [productName, setProductName] = useState(

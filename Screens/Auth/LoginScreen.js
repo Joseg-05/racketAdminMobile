@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -9,12 +8,15 @@ import {
     SafeAreaView,
 } from "react-native";
 
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../store/actions/actions";
+import * as SecureStore from "expo-secure-store";
+
 // screen that handles logging in the user
 export const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const { login } = React.useContext(AuthContext);
+    const dispatch = useDispatch();
 
     return (
         <SafeAreaView style={styles.container}>
@@ -43,8 +45,8 @@ export const LoginScreen = ({ navigation }) => {
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.loginButton}
-                    onPress={async () => {
-                        await login(email, password);
+                    onPress={() => {
+                        dispatch(loginUser(email, password));
                     }}
                 >
                     <Text style={{ color: "white" }}>Login</Text>

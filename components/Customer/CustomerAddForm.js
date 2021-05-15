@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
-import { UserContext } from "../../context/UserContext";
+import { useSelector } from "react-redux";
 
 import { StatusBar } from "expo-status-bar";
 
@@ -13,7 +13,7 @@ import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 import { AddTextInput } from "../shared/TextInputs/AddInput";
 
 export const CustomerAddForm = (props) => {
-    const user = useContext(UserContext);
+    const user = useSelector((state) => state.user);
 
     const [disableSave, setDisableSave] = useState(true);
     const [name, setName] = useState("");
