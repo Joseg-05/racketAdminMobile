@@ -85,6 +85,8 @@ export const AddDateInput = ({ handler, setState }) => {
         handler(currentDate, setState);
     };
 
+    console.log(date);
+
     return (
         <View style={styles.dateInputContainer}>
             <View style={{ flex: 1 }}>
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     },
     dateInput: {
         color: "#FFD700",
-        backgroundColor: "#0e2433",
+        backgroundColor: "#343a40",
         padding: 5,
         fontSize: 30,
         textAlign: "center",
