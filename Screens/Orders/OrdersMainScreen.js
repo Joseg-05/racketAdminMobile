@@ -76,22 +76,13 @@ export const OrdersMainScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <View
-                style={{
-                    width: "100%",
-                    height: STATUS_BAR_HEIGHT,
-                    backgroundColor: "#1e3d58",
-                }}
-            ></View>
+            <View style={styles.statusBar} ></View>
+
             <StatusBar style="light" backgroundColor="#1e3d58" />
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                    height: "9%",
-                }}
-            >
+
+            <Appbar style={styles.appBar} >
                 <Appbar.Content title="Orders" />
+
                 <Appbar.Action
                     icon={() => (
                         <Ionicons
@@ -105,8 +96,10 @@ export const OrdersMainScreen = (props) => {
                     }}
                 />
             </Appbar>
-            <View style={{ width: "100%", flex: 1 }}>
+
+            <View style={styles.orders} >
                 {/* Add a filter component here! */}
+
                 {userOrders ? (
                     <FlatList
                         data={userOrders}
@@ -131,8 +124,8 @@ export const OrdersMainScreen = (props) => {
                         keyExtractor={(item) => item._id}
                     />
                 ) : (
-                    <View>
-                        <Text>loading</Text>
+                    <View style={styles.text} >
+                        <Text style={{ color: "white" }}>Loading</Text>
                     </View>
                 )}
             </View>
@@ -146,5 +139,23 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#36454f",
     },
-    Text: {},
+    statusBar: {
+        width: "100%",
+        height: STATUS_BAR_HEIGHT,
+        backgroundColor: "#1e3d58",
+    },
+    appBar: {
+        minWidth: "100%",
+        backgroundColor: "#1e3d58",
+        height: "9%",
+    },
+    orders: {
+        width: "100%",
+        flex: 1,
+    },
+    text: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
 });

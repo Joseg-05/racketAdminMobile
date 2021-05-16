@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -8,7 +8,6 @@ import { EditTextInput, EditNumberInput } from "../shared/TextInputs/EditInput";
 
 export const InventoryEditForm = (props) => {
     const user = useSelector((state) => state.user);
-    const [disableSave, setDisableSave] = useState(false);
     const [productName, setProductName] = useState(
         props.route.params.productName
     );
@@ -25,12 +24,12 @@ export const InventoryEditForm = (props) => {
     // handle passing data from child to parent ... if time permits will convert to redux
     const inputHandler = (data, setState) => {
         setState(data);
-        setDisableSave(false);
+        // setDisableSave(false);
     };
 
     const updateInventory = async () => {
         // validate input and if valid, update inventory
-        let errList = inputValidation();
+        let errList = validateInventoryInput();
 
         // if no errors, put
         if (errList.length === 0) {
@@ -45,7 +44,7 @@ export const InventoryEditForm = (props) => {
         }
     };
 
-    const inputValidation = () => {
+    const validateInventoryInput = () => {
         const alertString = [];
 
         if (productName.length === 0) {
@@ -60,52 +59,56 @@ export const InventoryEditForm = (props) => {
     };
 
     return (
-        <View>
-            <Appbar style={styles.appbar}>
-                <Appbar.Action
-                    icon={() => <Feather name="x" size={24} color="white" />}
-                    onPress={() => props.navigation.pop()}
-                />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+            <View>
+                <Appbar style={styles.appbar}>
+                    <Appbar.Action
+                        icon={() => <Feather name="x" size={24} color="white" />}
+                        onPress={() => props.navigation.pop()}
+                    />
 
-                <Appbar.Content title="Edit Inventory" />
+                    <Appbar.Content title="Edit Inventory" />
 
-                <TouchableOpacity
-                    style={styles.save}
-                    onPress={async () => {
-                        await updateInventory();
-                    }}
-                >
-                    <Appbar.Content color="white" title="Save" />
-                </TouchableOpacity>
-            </Appbar>
+                    <TouchableOpacity
+                        style={styles.save}
+                        onPress={async () => {
+                            await updateInventory();
+                        }}
+                    >
+                        <Appbar.Content color="white" title="Save" />
+                    </TouchableOpacity>
+                </Appbar>
 
-            <View style={styles.container}>
-                <View style={styles.input}>
-                    <View style={styles.minWidth}>
-                        <EditTextInput
-                            initialValue={productName}
-                            handler={inputHandler}
-                            setState={setProductName}
-                            title={"Product Name"}
-                        />
+                <View style={styles.container}>
+                    <View style={styles.input}>
+                        <View style={styles.minWidth}>
+                            <EditTextInput
+                                initialValue={productName}
+                                handler={inputHandler}
+                                setState={setProductName}
+                                title={"Product Name"}
+                            />
 
-                        <EditNumberInput
-                            initialValue={quantity}
-                            handler={inputHandler}
-                            setState={setQuantity}
-                            title={"Quantity"}
-                        />
+                            <EditNumberInput
+                                initialValue={quantity}
+                                handler={inputHandler}
+                                setState={setQuantity}
+                                title={"Quantity"}
+                            />
+                        </View>
+                    </View>
+
+                    <View>
+                        <TouchableOpacity
+                            style={styles.deleteButton}
+                            // onPress={}
+                        >
+                            <Text style={{ color: "white" }}>Delete</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-
-                <TouchableOpacity
-                    style={styles.button}
-                    // onPress={}
-                >
-                    <Text style={{ color: "white" }}>Delete</Text>
-                </TouchableOpacity>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
@@ -131,11 +134,12 @@ const styles = StyleSheet.create({
     minWidth: {
         minWidth: "100%",
     },
-    button: {
-        alignContent: "center",
-        alignItems: "center",
-        backgroundColor: "#1e3d58",
-        fontSize: 20,
+    deleteButton: {
+        width: "100%",
+        backgroundColor: "#343a40",
+        borderRadius: 8,
         padding: 20,
+        alignItems: "center",
+        marginTop: 20,
     },
 });
