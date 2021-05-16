@@ -13,7 +13,7 @@ export const OrdersNavigator = (props) => {
             screenOptions={{
                 headerShown: false,
             }}
-            mode="modal"
+            // mode="modal"
         >
             <Stack.Screen
                 name="OrdersMainScreen"

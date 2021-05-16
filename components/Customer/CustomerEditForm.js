@@ -1,33 +1,20 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-
 import { EditTextInput } from "../shared/TextInputs/EditInput";
 import { customersPut } from "../../api/put";
-
 import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
+
 
 export const CustomerEditForm = (props) => {
     const user = useSelector((state) => state.user);
 
-    const [disableSave, setDisableSave] = useState(true);
     const [name, setName] = useState(props.route.params.itemData.name);
     const [phoneNumber, setPhoneNumber] = useState(
         props.route.params.itemData.phoneNumber
     );
-
-    //handle passing data from child to parent ... if time permits will convert to redux
-    const inputHandler = (data, setState) => {
-        setState(data);
-        setDisableSave(false);
-    };
-
-    const saveHandler = async () => {
-        await customersPut(user, props.route.params.itemData._id, buildBody());
-        props.navigation.pop();
-    };
 
     //create one object to send to the api request
     const buildBody = () => {
@@ -37,68 +24,123 @@ export const CustomerEditForm = (props) => {
         };
     };
 
+    //handle passing data from child to parent
+    const inputHandler = (data, setState) => {
+        setState(data);
+    };
+
+    const updateCustomer = async () => {
+        // validate input and if valid, update customer
+        let errList = validateCustomerInput();
+
+        if (errList.length === 0) {
+            await customersPut(user, props.route.params.itemData._id, buildBody());
+            props.navigation.pop();
+        } else {
+            alert(
+                "Please fill out the following fields:\n" + errList.join(", ")
+            );
+        }
+        
+    };
+
+    const validateCustomerInput = () => {
+        const alertString = [];
+
+        if (name.length === 0) {
+            alertString.push("Name");
+        }
+
+        if (phoneNumber.length === 0) {
+            alertString.push("Phone Number");
+        }
+
+        return alertString;
+    }
+
     return (
-        <View>
-            <EditHeaderBar
-                {...props}
-                saveHandler={saveHandler}
-                title={"Edit Customer"}
-                operationTitle={"Save"}
-            />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+            <View>
+                <Appbar style={styles.appbar} >
+                    <Appbar.Action
+                        icon={() => <Feather name="x" size={24} color="white" />}
+                        onPress={() => props.navigation.pop()}
+                    />
 
-            <View style={styles.container}>
-                <View
-                    style={{
-                        minWidth: "100%",
-                        flexDirection: "row",
-                        alignContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <View style={{ minWidth: "100%" }}>
-                        <EditTextInput
-                            initialValue={name}
-                            handler={inputHandler}
-                            setState={setName}
-                            title={"Name"}
-                        />
+                    <Appbar.Content title="Edit Customer" />
 
-                        <EditTextInput
-                            initialValue={phoneNumber}
-                            handler={inputHandler}
-                            setState={setPhoneNumber}
-                            title={"phone"}
-                        />
+                    <TouchableOpacity
+                        style={styles.save}
+                        onPress={async () => {
+                            await updateCustomer();
+                        }}
+                    >
+                        <Appbar.Content color="white" title="Save" />
+                    </TouchableOpacity>
+                </Appbar>
+
+                <View style={styles.container} >
+                    <View style={styles.input} >
+                        <View style={styles.minWidth} >
+                            <EditTextInput
+                                initialValue={name}
+                                handler={inputHandler}
+                                setState={setName}
+                                title={"Name"}
+                            />
+
+                            <EditTextInput
+                                initialValue={phoneNumber}
+                                handler={inputHandler}
+                                setState={setPhoneNumber}
+                                title={"phone"}
+                            />
+                        </View>
+                    </View>
+
+                    <View>
+                        <TouchableOpacity
+                            style={styles.deleteButton}
+                            // onPress={}
+                        >
+                            <Text style={{ color: "white" }}>Delete</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
+
 const styles = StyleSheet.create({
+    appbar: {
+        minWidth: "100%",
+        backgroundColor: "#1e3d58",
+    },
+    save: {
+        marginTop: 14,
+        marginRight: 10,
+    },
     container: {
         flexDirection: "column",
         flex: 1,
     },
-
-    submitButton: {
-        alignSelf: "center",
-        position: "absolute",
-
-        bottom: 20,
+    input: {
+        minWidth: "100%",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
     },
-    text: {
-        color: "#FFD700",
-        textAlign: "center",
+    minWidth: {
+        minWidth: "100%",
     },
-    textInput: {
+    deleteButton: {
         width: "100%",
-        borderColor: "#FFD700",
-        color: "#FFD700",
-        backgroundColor: "#36454f",
-        fontSize: 20,
-        textAlign: "center",
+        backgroundColor: "#343a40",
+        borderRadius: 8,
+        padding: 20,
+        alignItems: "center",
+        marginTop: 20,
     },
 });
-// test push

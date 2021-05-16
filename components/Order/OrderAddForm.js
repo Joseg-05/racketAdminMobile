@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -25,11 +25,6 @@ export const OrderAddForm = (props) => {
     const [stringType, setStringType] = useState("");
     const [dueDate, setDueDate] = useState(null);
 
-    //handle passing data from child to parent
-    const inputHandler = (data, setState) => {
-        setState(data);
-    };
-
     //create one object to send to the api request
     const buildBody = () => {
         return {
@@ -43,32 +38,54 @@ export const OrderAddForm = (props) => {
         };
     };
 
-    const createOrder = async () => {
-        await orderPost(user, buildBody());
-        props.navigation.pop();
+    //handle passing data from child to parent
+    const inputHandler = (data, setState) => {
+        setState(data);
     };
 
-    //will implement later
-    const checkTextInputValidation = () => {
+    const createOrder = async () => {
+        // validate input and if valid, add order
+        let errList = validateOrderInput();
+
+        if (errList.length === 0) {
+            await orderPost(user, buildBody());
+            props.navigation.pop();
+        } else {
+            alert(
+                "Please fill out the following fields:\n" + errList.join(", ")
+            );
+        }
+    };
+
+    const validateOrderInput = () => {
         const alertString = [];
-        if (!model.trim()) {
+
+        if (model.length === 0) {
             alertString.push("Model");
         }
 
-        if (!racketBrand.trim()) {
+        if (racketBrand.length === 0) {
             alertString.push("Racket Brand");
         }
 
-        if (alertString.length > 0) {
-            alert(
-                "Please fill out the following fields:\n" +
-                    alertString.join(", ")
-            );
-            return false;
+        if (recTension.length === 0) {
+            alertString.push("Rec. Tension Range");
         }
 
-        return true;
-    };
+        if (stringPattern.length === 0) {
+            alertString.push("String Pattern");
+        }
+
+        if (desiredTension.length === 0) {
+            alertString.push("Desired Tension");
+        }
+
+        if (stringType.length === 0) {
+            alertString.push("String Type");
+        }
+
+        return alertString;
+    }
 
     return (
         <View>
@@ -141,14 +158,23 @@ export const OrderAddForm = (props) => {
                             setState={setStringType}
                             title={"String Type"}
                         />
+
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
 const styles = StyleSheet.create({
+    appbar: {
+        minWidth: "100%",
+        backgroundColor: "#1e3d58",
+    },
+    add: {
+        marginTop: 14,
+        marginRight: 10,
+    },
     container: {
         flexDirection: "column",
         flex: 1,

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 
@@ -10,7 +10,7 @@ import { AddTextInput, AddNumberInput } from "../shared/TextInputs/AddInput";
 export const InventoryAddForm = (props) => {
     const user = useSelector((state) => state.user);
 
-    const [disableSave, setDisableSave] = useState(false);
+    // const [disableSave, setDisableSave] = useState(false);
     const [productName, setProductName] = useState("");
     const [quantity, setQuantity] = useState("");
 
@@ -25,27 +25,23 @@ export const InventoryAddForm = (props) => {
     // handle passing data from child to parent
     const inputHandler = (data, setState) => {
         setState(data);
-        setDisableSave(false);
     };
 
     const createInventory = async () => {
         // validate input and if valid, update inventory
-        let errList = inputValidation();
+        let errList = validateInventoryInput();
 
-        // if no errors, post
         if (errList.length === 0) {
             await stockPost(user, buildBody());
             props.navigation.pop();
-        }
-        // else alert user of errors
-        else {
+        } else {
             alert(
                 "Please fill out the following fields:\n" + errList.join(", ")
             );
         }
     };
 
-    const inputValidation = () => {
+    const validateInventoryInput = () => {
         const alertString = [];
 
         if (productName.length === 0) {
@@ -60,43 +56,45 @@ export const InventoryAddForm = (props) => {
     };
 
     return (
-        <View>
-            <Appbar style={styles.appbar}>
-                <Appbar.Action
-                    icon={() => <Feather name="x" size={24} color="white" />}
-                    onPress={() => props.navigation.pop()}
-                />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View>
+                <Appbar style={styles.appbar}>
+                    <Appbar.Action
+                        icon={() => <Feather name="x" size={24} color="white" />}
+                        onPress={() => props.navigation.pop()}
+                    />
 
-                <Appbar.Content title="Add Inventory" />
+                    <Appbar.Content title="Add Inventory" />
 
-                <TouchableOpacity
-                    style={styles.add}
-                    onPress={async () => {
-                        await createInventory();
-                    }}
-                >
-                    <Appbar.Content color="white" title="Add" />
-                </TouchableOpacity>
-            </Appbar>
+                    <TouchableOpacity
+                        style={styles.add}
+                        onPress={async () => {
+                            await createInventory();
+                        }}
+                    >
+                        <Appbar.Content color="white" title="Add" />
+                    </TouchableOpacity>
+                </Appbar>
 
-            <View style={styles.container}>
-                <View style={styles.input}>
-                    <View style={styles.minWidth}>
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setProductName}
-                            title={"Product Name"}
-                        />
+                <View style={styles.container}>
+                    <View style={styles.input}>
+                        <View style={styles.minWidth}>
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setProductName}
+                                title={"Product Name"}
+                            />
 
-                        <AddNumberInput
-                            handler={inputHandler}
-                            setState={setQuantity}
-                            title={"Quantity"}
-                        />
+                            <AddNumberInput
+                                handler={inputHandler}
+                                setState={setQuantity}
+                                title={"Quantity"}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
