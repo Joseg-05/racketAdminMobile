@@ -104,7 +104,9 @@ export const OrderAddForm = (props) => {
                     }}
                 >
                     <Appbar.Action
-                        icon={() => <Feather name="x" size={24} color="white" />}
+                        icon={() => (
+                            <Feather name="x" size={24} color="white" />
+                        )}
                         onPress={() => props.navigation.pop()}
                     />
                     <Appbar.Content title="Add Order" />
@@ -170,7 +172,7 @@ export const OrderAddForm = (props) => {
                     </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 
