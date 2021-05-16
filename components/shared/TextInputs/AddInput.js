@@ -85,8 +85,6 @@ export const AddDateInput = ({ handler, setState }) => {
         handler(currentDate, setState);
     };
 
-    console.log(date);
-
     return (
         <View style={styles.dateInputContainer}>
             <View style={{ flex: 1 }}>
@@ -125,6 +123,7 @@ export const AddDateInput = ({ handler, setState }) => {
                         is24Hour={true}
                         display="default"
                         onChange={onChange}
+                        style={{ width: 320, backgroundColor: "white" }}
                     />
                 )}
             </View>
