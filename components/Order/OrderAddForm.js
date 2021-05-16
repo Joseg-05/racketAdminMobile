@@ -1,5 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from "react-native";
 import { Appbar } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -23,7 +30,7 @@ export const OrderAddForm = (props) => {
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
     const [stringType, setStringType] = useState("");
-    const [dueDate, setDueDate] = useState(null);
+    const [dueDate, setDueDate] = useState(new Date());
 
     //create one object to send to the api request
     const buildBody = () => {
@@ -85,7 +92,7 @@ export const OrderAddForm = (props) => {
         }
 
         return alertString;
-    }
+    };
 
     return (
         <TouchableWithoutFeedback>
@@ -159,12 +166,11 @@ export const OrderAddForm = (props) => {
                                 setState={setStringType}
                                 title={"String Type"}
                             />
-
                         </View>
                     </View>
                 </View>
             </View>
-        </TouchableWithoutFeedback>
+        </View>
     );
 };
 
