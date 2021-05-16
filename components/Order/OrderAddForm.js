@@ -88,7 +88,7 @@ export const OrderAddForm = (props) => {
     }
 
     return (
-        <View>
+        <TouchableWithoutFeedback>
             <Appbar
                 style={{
                     minWidth: "100%",
