@@ -1,5 +1,12 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
@@ -7,7 +14,6 @@ import { StatusBar } from "expo-status-bar";
 import { customersPost } from "../../api/post";
 import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 import { AddTextInput } from "../shared/TextInputs/AddInput";
-
 
 export const CustomerAddForm = (props) => {
     const user = useSelector((state) => state.user);
@@ -54,14 +60,16 @@ export const CustomerAddForm = (props) => {
         }
 
         return alertString;
-    }
+    };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View>
-                <Appbar style={styles.appbar} >
+                <Appbar style={styles.appbar}>
                     <Appbar.Action
-                        icon={() => <Feather name="x" size={24} color="white" />}
+                        icon={() => (
+                            <Feather name="x" size={24} color="white" />
+                        )}
                         onPress={() => props.navigation.pop()}
                     />
 
@@ -77,8 +85,8 @@ export const CustomerAddForm = (props) => {
                     </TouchableOpacity>
                 </Appbar>
 
-                <View style={styles.container} >
-                    <View style={styles.input} >
+                <View style={styles.container}>
+                    <View style={styles.input}>
                         <View style={styles.minWidth}>
                             <AddTextInput
                                 handler={inputHandler}
@@ -103,9 +111,10 @@ const styles = StyleSheet.create({
     appbar: {
         minWidth: "100%",
         backgroundColor: "#1e3d58",
+        paddingTop: 20,
     },
     add: {
-        marginTop: 14,
+        paddingTop: 5,
         marginRight: 10,
     },
     container: {

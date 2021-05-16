@@ -1,12 +1,18 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from "react-native";
 import { Button, TextInput, Appbar } from "react-native-paper";
 import { Feather, Fontisto } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { EditTextInput } from "../shared/TextInputs/EditInput";
 import { customersPut } from "../../api/put";
 import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
-
 
 export const CustomerEditForm = (props) => {
     const user = useSelector((state) => state.user);
@@ -34,14 +40,17 @@ export const CustomerEditForm = (props) => {
         let errList = validateCustomerInput();
 
         if (errList.length === 0) {
-            await customersPut(user, props.route.params.itemData._id, buildBody());
+            await customersPut(
+                user,
+                props.route.params.itemData._id,
+                buildBody()
+            );
             props.navigation.pop();
         } else {
             alert(
                 "Please fill out the following fields:\n" + errList.join(", ")
             );
         }
-        
     };
 
     const validateCustomerInput = () => {
@@ -56,14 +65,16 @@ export const CustomerEditForm = (props) => {
         }
 
         return alertString;
-    }
+    };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View>
-                <Appbar style={styles.appbar} >
+                <Appbar style={styles.appbar}>
                     <Appbar.Action
-                        icon={() => <Feather name="x" size={24} color="white" />}
+                        icon={() => (
+                            <Feather name="x" size={24} color="white" />
+                        )}
                         onPress={() => props.navigation.pop()}
                     />
 
@@ -79,9 +90,9 @@ export const CustomerEditForm = (props) => {
                     </TouchableOpacity>
                 </Appbar>
 
-                <View style={styles.container} >
-                    <View style={styles.input} >
-                        <View style={styles.minWidth} >
+                <View style={styles.container}>
+                    <View style={styles.input}>
+                        <View style={styles.minWidth}>
                             <EditTextInput
                                 initialValue={name}
                                 handler={inputHandler}
@@ -112,14 +123,15 @@ export const CustomerEditForm = (props) => {
     );
 };
 
-
 const styles = StyleSheet.create({
     appbar: {
         minWidth: "100%",
         backgroundColor: "#1e3d58",
+        // paddingTop: 20,
+        paddingBottom: 10,
     },
     save: {
-        marginTop: 14,
+        paddingTop: 10,
         marginRight: 10,
     },
     container: {
