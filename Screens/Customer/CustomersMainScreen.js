@@ -3,11 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
-    SafeAreaView,
     FlatList,
     TouchableOpacity,
-    PlatForm,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Swipeable } from "react-native-gesture-handler";

@@ -1,8 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Platform } from "react-native";
 import Constants from "expo-constants";
-import { Appbar } from "react-native-paper";
-import { Feather } from "@expo/vector-icons";
 import { CustomerAddForm } from "../../components/Customer/CustomerAddForm";
 import { StatusBar } from "expo-status-bar";
 const STATUS_BAR_HEIGHT = Platform.OS === "ios" ? 20 : StatusBar.currentHeight;

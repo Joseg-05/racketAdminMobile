@@ -1,5 +1,5 @@
-import React ,{ useEffect }from "react";
-import { SafeAreaView, StyleSheet, Text, Platform, View } from "react-native";
+import React from "react";
+import { StyleSheet, Platform, View } from "react-native";
 import Constants from "expo-constants";
 import { CustomerEditForm } from "../../components/Customer/CustomerEditForm";
 import { StatusBar } from "expo-status-bar";

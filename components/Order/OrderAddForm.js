@@ -5,10 +5,14 @@ import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { orderPost } from "../../api/post";
 import { customersGet } from "../../api/get";
-import { AddTextInput } from "../shared/TextInputs/AddInput";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { AddTextInput, AddDateInput } from "../shared/TextInputs/AddInput";
 
 import ModalSelector from "react-native-modal-selector";
+
+const genDate = () => {
+    const d = new Date();
+    return `${d.getMonth()}/${d.getDay()}`;
+};
 
 export const OrderAddForm = (props) => {
     const user = useSelector((state) => state.user);
@@ -19,16 +23,7 @@ export const OrderAddForm = (props) => {
     const [stringPattern, setStringPattern] = useState("");
     const [desiredTension, setDesiredTension] = useState("");
     const [stringType, setStringType] = useState("");
-
-    const [date, setDate] = useState(new Date());
-    const [mode, setMode] = useState("date");
-    const [show, setShow] = useState(false);
-
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setShow(Platform.OS === "ios");
-        setDate(date);
-    };
+    const [dueDate, setDueDate] = useState(null);
 
     //handle passing data from child to parent
     const inputHandler = (data, setState) => {
@@ -44,6 +39,7 @@ export const OrderAddForm = (props) => {
             desiredTension,
             model,
             stringType,
+            dueDate,
         };
     };
 
@@ -111,6 +107,10 @@ export const OrderAddForm = (props) => {
                     }}
                 >
                     <View style={{ minWidth: "100%" }}>
+                        <AddDateInput
+                            handler={inputHandler}
+                            setState={setDueDate}
+                        />
                         <AddTextInput
                             handler={inputHandler}
                             setState={setRacketBrand}
@@ -141,26 +141,6 @@ export const OrderAddForm = (props) => {
                             setState={setStringType}
                             title={"String Type"}
                         />
-
-                        <TouchableOpacity
-                            onPress={() => {
-                                setShow(true);
-                            }}
-                        >
-                            <Text>Press here to change date</Text>
-                        </TouchableOpacity>
-
-                        {show && (
-                            <DateTimePicker
-                                style={{ color: "black" }}
-                                testID="dateTimePicker"
-                                value={date}
-                                mode={mode}
-                                is24Hour={true}
-                                display="default"
-                                onChange={onChange}
-                            />
-                        )}
                     </View>
                 </View>
             </View>
@@ -172,5 +152,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1,
+    },
+    datePickerButton: {
+        backgroundColor: "white",
+        width: "90%",
     },
 });
