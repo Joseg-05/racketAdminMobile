@@ -95,76 +95,78 @@ export const OrderAddForm = (props) => {
     };
 
     return (
-        <View>
-            <Appbar
-                style={{
-                    minWidth: "100%",
-                    backgroundColor: "#1e3d58",
-                }}
-            >
-                <Appbar.Action
-                    icon={() => <Feather name="x" size={24} color="white" />}
-                    onPress={() => props.navigation.pop()}
-                />
-                <Appbar.Content title="Add Order" />
-                <TouchableOpacity
-                    style={{
-                        marginTop: 14,
-                        marginRight: 10,
-                    }}
-                    disabled={false}
-                    onPress={async () => {
-                        await createOrder();
-                    }}
-                >
-                    <Appbar.Content color={"white"} title="Add" />
-                </TouchableOpacity>
-            </Appbar>
-
-            <View style={styles.container}>
-                <View
+        <TouchableWithoutFeedback>
+            <View>
+                <Appbar
                     style={{
                         minWidth: "100%",
-                        flexDirection: "row",
-                        alignContent: "center",
-                        alignItems: "center",
+                        backgroundColor: "#1e3d58",
                     }}
                 >
-                    <View style={{ minWidth: "100%" }}>
-                        <AddDateInput
-                            handler={inputHandler}
-                            setState={setDueDate}
-                        />
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setRacketBrand}
-                            title={"Racket Brand"}
-                        />
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setModel}
-                            title={"Model"}
-                        />
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setStringPattern}
-                            title={"String Pattern"}
-                        />
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setRecTension}
-                            title={"Rec. Tension Range"}
-                        />
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setDesiredTension}
-                            title={"Desired Tension"}
-                        />
-                        <AddTextInput
-                            handler={inputHandler}
-                            setState={setStringType}
-                            title={"String Type"}
-                        />
+                    <Appbar.Action
+                        icon={() => <Feather name="x" size={24} color="white" />}
+                        onPress={() => props.navigation.pop()}
+                    />
+                    <Appbar.Content title="Add Order" />
+                    <TouchableOpacity
+                        style={{
+                            marginTop: 14,
+                            marginRight: 10,
+                        }}
+                        disabled={false}
+                        onPress={async () => {
+                            await createOrder();
+                        }}
+                    >
+                        <Appbar.Content color={"white"} title="Add" />
+                    </TouchableOpacity>
+                </Appbar>
+
+                <View style={styles.container}>
+                    <View
+                        style={{
+                            minWidth: "100%",
+                            flexDirection: "row",
+                            alignContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <View style={{ minWidth: "100%" }}>
+                            <AddDateInput
+                                handler={inputHandler}
+                                setState={setDueDate}
+                            />
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setRacketBrand}
+                                title={"Racket Brand"}
+                            />
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setModel}
+                                title={"Model"}
+                            />
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setStringPattern}
+                                title={"String Pattern"}
+                            />
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setRecTension}
+                                title={"Rec. Tension Range"}
+                            />
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setDesiredTension}
+                                title={"Desired Tension"}
+                            />
+                            <AddTextInput
+                                handler={inputHandler}
+                                setState={setStringType}
+                                title={"String Type"}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>
