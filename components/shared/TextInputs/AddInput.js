@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Button, TextInput, Appbar } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -80,7 +80,7 @@ export const AddDateInput = ({ handler, setState }) => {
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
-        setShow(Platform.OS === "ios");
+        setShow(false);
         setDate(currentDate);
         handler(currentDate, setState);
     };

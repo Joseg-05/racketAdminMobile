@@ -1,18 +1,16 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
+import React, { useState } from "react";
 import {
     View,
-    Text,
     StyleSheet,
     TouchableOpacity,
     TouchableWithoutFeedback,
     Keyboard,
 } from "react-native";
-import { Button, TextInput, Appbar } from "react-native-paper";
-import { Feather, Fontisto } from "@expo/vector-icons";
+import { Appbar } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import { StatusBar } from "expo-status-bar";
+
 import { customersPost } from "../../api/post";
-import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 import { AddTextInput } from "../shared/TextInputs/AddInput";
 
 export const CustomerAddForm = (props) => {

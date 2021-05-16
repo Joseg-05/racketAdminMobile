@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useRef } from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -7,12 +7,11 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
 } from "react-native";
-import { Button, TextInput, Appbar } from "react-native-paper";
-import { Feather, Fontisto } from "@expo/vector-icons";
+import { Appbar } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import { EditTextInput } from "../shared/TextInputs/EditInput";
 import { customersPut } from "../../api/put";
-import { EditHeaderBar } from "../shared/Headers/EditHeaderBar";
 
 export const CustomerEditForm = (props) => {
     const user = useSelector((state) => state.user);
