@@ -7,6 +7,7 @@ import thunk from "redux-thunk";
 
 import { RootStackNavigator } from "./navigators/RootStackNavigator";
 
+//need thunk middleware for async redux
 const store = createStore(userReducer, applyMiddleware(thunk));
 
 const App = (props) => {
