@@ -6,3 +6,6 @@
 
 <h3 align="center"> Home Page </h3>
 <p>Upon logging in you will be presented with the home page, at the moment you can only logout of your account </p>
+
+<h3 align="center"> Orders Page </h3>
+<p>Switching the the orders tab, you can <strong>Add</strong> and <strong>Edit</strong> Orders</p>
