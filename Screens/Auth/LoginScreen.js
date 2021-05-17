@@ -66,7 +66,7 @@ export const LoginScreen = ({ navigation }) => {
             </View>
 
             <View>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={styles.registerButton}
                     onPress={() => {
                         navigation.navigate("Register");
@@ -75,7 +75,7 @@ export const LoginScreen = ({ navigation }) => {
                     <Text style={{ color: "#FFD700" }}>
                         Press here to register
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </SafeAreaView>
     );

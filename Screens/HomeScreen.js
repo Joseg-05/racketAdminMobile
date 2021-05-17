@@ -66,7 +66,7 @@ const HomeScreen = (props) => {
         }
         data.forEach((el) => {
             const date = el.dueDate.slice(5, 7);
-            console.log(date);
+
             dataMap.get(date).val++;
         });
         const result = [];

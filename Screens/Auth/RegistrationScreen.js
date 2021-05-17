@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
     StyleSheet,
     Text,
@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { AuthContext } from "../../context/AuthContext";
-
 /* Screen that handles Registration */
 export const RegistrationScreen = ({ navigation }) => {
     const { register } = React.useContext(AuthContext);

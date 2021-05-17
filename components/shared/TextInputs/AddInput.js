@@ -123,7 +123,7 @@ export const AddDateInput = ({ handler, setState }) => {
                         is24Hour={true}
                         display="default"
                         onChange={onChange}
-                        style={{ width: 320, backgroundColor: "white" }}
+                        style={{ width: "100%", backgroundColor: "white" }}
                     />
                 )}
             </View>
