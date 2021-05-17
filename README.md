@@ -25,10 +25,10 @@
 
 
 <h3 align="center">Extra Notes</h3>
-<p> All Edit and Add Screens have input validation (dont leave empty)</p>
+<p> All Edit and Add Screens have input validation</p>
 <p>All interactions with logging in, logging out, adding or editing any items within the app are interactions with the racket admin api hosted on a seperate server,
 since the hosting is on a free tier, the first time you log in or add/edit any items you may have to wait a little bit for the api to respond</p>
-<p>react-native-paper, redux-thunk, and axios are some of the main third party npm packages used </p>
+<p>react-native-paper, redux-thunk, react-native-chart-kit, and axios are some of the main third party npm packages used </p>
 <p> Redux is used to store the user's JWT token</p>
 <p> <strong>Delete Buttons</strong> are not implemented on any of the edit screens ATM</p>
 <p> There are some header UI issues with IOS (would prefer to run the app on android), however the app will not crash on either apps, and everything runs efficiently </p>
