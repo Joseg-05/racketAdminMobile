@@ -6,7 +6,7 @@ export const OrderRow = ({ orderDetails }) => {
 
     useEffect(() => {
         const formatDate = new Date(date);
-        setDate(` ${formatDate.getMonth()}/${formatDate.getDate()}`);
+        setDate(` ${formatDate.getMonth() + 1}/${formatDate.getDate()}`);
         console.log();
     }, []);
 

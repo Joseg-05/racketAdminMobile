@@ -23,7 +23,7 @@ const STATUS_BAR_HEIGHT =
 const CustomersMainScreen = (props) => {
     const user = useSelector((state) => state.user);
 
-    const [customers, setCustomers] = useState([]);
+    const [customers, setCustomers] = useState(null);
 
     //on mount get customers associated with user
     useEffect(() => {
@@ -100,30 +100,36 @@ const CustomersMainScreen = (props) => {
                     }}
                 />
             </Appbar>
-            <View style={{ width: "100%", flex: 1 }}>
-                <FlatList
-                    data={customers}
-                    renderItem={({ item }) => {
-                        return (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    props.navigation.navigate(
-                                        "CustomerEditScreen",
-                                        {
-                                            itemData: item,
-                                        }
-                                    );
-                                }}
-                            >
-                                <Swipeable renderLeftActions={LeftAction}>
-                                    <CustomerRow customerDetails={item} />
-                                </Swipeable>
-                            </TouchableOpacity>
-                        );
-                    }}
-                    keyExtractor={(item) => item._id}
-                />
-            </View>
+            {customers ? (
+                <View style={{ width: "100%", flex: 1 }}>
+                    <FlatList
+                        data={customers}
+                        renderItem={({ item }) => {
+                            return (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        props.navigation.navigate(
+                                            "CustomerEditScreen",
+                                            {
+                                                itemData: item,
+                                            }
+                                        );
+                                    }}
+                                >
+                                    <Swipeable renderLeftActions={LeftAction}>
+                                        <CustomerRow customerDetails={item} />
+                                    </Swipeable>
+                                </TouchableOpacity>
+                            );
+                        }}
+                        keyExtractor={(item) => item._id}
+                    />
+                </View>
+            ) : (
+                <View style={styles.text}>
+                    <Text style={{ color: "white" }}>Loading</Text>
+                </View>
+            )}
         </View>
     );
 };
@@ -133,6 +139,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: "#36454f",
+        justifyContent: "center",
+    },
+    text: {
+        flex: 1,
+        alignItems: "center",
         justifyContent: "center",
     },
 });

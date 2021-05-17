@@ -46,9 +46,9 @@ export const InventoryMainScreen = (props) => {
 
             <StatusBar style="light" backgroundColor="#1e3d58" />
 
-            <Appbar style={styles.appBar} >
+            <Appbar style={styles.appBar}>
                 <Appbar.Content title="Inventory" />
-                
+
                 <Appbar.Action
                     icon={() => (
                         <Ionicons
@@ -65,7 +65,7 @@ export const InventoryMainScreen = (props) => {
 
             <View style={styles.inventory}>
                 {/* add a filter component here! */}
-                {userInventory && (
+                {userInventory ? (
                     <FlatList
                         data={userInventory}
                         renderItem={({ item }) => {
@@ -86,6 +86,10 @@ export const InventoryMainScreen = (props) => {
                         }}
                         keyExtractor={(item) => item._id}
                     />
+                ) : (
+                    <View style={styles.text}>
+                        <Text style={{ color: "white" }}>Loading</Text>
+                    </View>
                 )}
             </View>
         </View>
@@ -111,5 +115,10 @@ const styles = StyleSheet.create({
     inventory: {
         width: "100%",
         flex: 1,
+    },
+    text: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
     },
 });
