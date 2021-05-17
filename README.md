@@ -8,4 +8,24 @@
 <p>Upon logging in you will be presented with the home page, at the moment you can only logout of your account </p>
 
 <h3 align="center"> Orders Page </h3>
-<p>Switching the the orders tab, you can <strong>Add</strong> and <strong>Edit</strong> Orders</p>
+<p>Switching the the orders tab, you can <strong>Add</strong> or <strong>Edit</strong> Orders</p>
+<p> Clicking on the add icon on the top right from the main order tab screen will take you to the add screen</p>
+<p> Clicking on any order on the screen from the main order tab screen will take you to the edit screen, here you can edit the order, with multiple textinputs and also a date button on top that once you click on it, a calendar will pop up (only working on android atm)</p>
+<p> After adding or editing a an order, you should be redirected back to the main orders tab, where you will see the update in the list of orders </p>
+<p> You are able to swipe left for a "Completed" gesture, however, it is not completely implemented at the moment</p>
+
+<h3 align="center"> Customers Page </h3>
+<p> Functions are similar the Orders page in that you can add or edit customers</p>
+
+<h3 align="center"> Inventory Page </h3>
+<p> Functions are similar the Orders page in that you can add or edit Inventory</p>
+
+
+<h3 align="center">Extra Notes</h3>
+<p> All Edit and Add Screens have input validation (dont leave empty)</p>
+<p>All interactions with logging in, logging out, adding or editing any items within the app are interactions with the racket admin api hosted on a seperate server,
+since the hosting is on a free tier, the first time you log in or add/edit any items you may have to wait a little bit for the api to respond</p>
+<p>react-native-paper, redux-thunk, and axios are some of the main third party npm packages used </p>
+<p> Redux is used to store the user's JWT token</p>
+<p> <strong>Delete Buttons</strong> are not implemented on any of the edit screens ATM</p>
+<p> There are some header UI issues with IOS (would prefer to run the app on android), however the app will not crash on either apps, and everything runs efficiently </p>
