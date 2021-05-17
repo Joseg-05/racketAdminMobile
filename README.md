@@ -32,3 +32,6 @@ since the hosting is on a free tier, the first time you log in or add/edit any i
 <p> Redux is used to manage the user's JWT token</p>
 <p> <strong>Delete Buttons</strong> are not implemented on any of the edit screens ATM</p>
 <p> There are some header UI issues with IOS (would prefer to run the app on android), however the app will not crash on either apps, and everything runs efficiently </p>
+
+<strong> EXPO LINK: https://expo.io/@tommylay1902/projects/racketAdmin</strong>
+<strong> Github LINK: https://github.com/tommylay1902/racketAdminMobile </strong>
