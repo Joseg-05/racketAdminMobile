@@ -5,7 +5,10 @@
 <p><strong>Overview:</strong> Users will input their credentials to log in (For the time being please use <strong>email: T@gmail.com</strong> and <strong>password: 1234</strong>). Once they have done so, they are able to see/edit their orders, customers, and products.</p>
 
 <h3 align="center"> Home Page </h3>
-<p>Upon logging in you will be presented with the home page, at the moment you can only logout of your account </p>
+<p>Upon logging in you will be presented with the home page </p>
+<p>You can logout by clicking on the icon on the top right</p>
+<p>At the time you can see one graph on the screen (not completely styled) that will show your orders over the month</p>
+
 
 <h3 align="center"> Orders Page </h3>
 <p>Switching the the orders tab, you can <strong>Add</strong> or <strong>Edit</strong> Orders</p>
@@ -22,10 +25,10 @@
 
 
 <h3 align="center">Extra Notes</h3>
-<p> All Edit and Add Screens have input validation (dont leave empty)</p>
+<p> All Edit and Add Screens have input validation</p>
 <p>All interactions with logging in, logging out, adding or editing any items within the app are interactions with the racket admin api hosted on a seperate server,
 since the hosting is on a free tier, the first time you log in or add/edit any items you may have to wait a little bit for the api to respond</p>
-<p>react-native-paper, redux-thunk, and axios are some of the main third party npm packages used </p>
-<p> Redux is used to store the user's JWT token</p>
+<p>react-native-paper, redux-thunk, react-native-chart-kit, and axios are some of the main third party npm packages used </p>
+<p> Redux is used to manage the user's JWT token</p>
 <p> <strong>Delete Buttons</strong> are not implemented on any of the edit screens ATM</p>
 <p> There are some header UI issues with IOS (would prefer to run the app on android), however the app will not crash on either apps, and everything runs efficiently </p>
